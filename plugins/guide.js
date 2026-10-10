@@ -12,7 +12,7 @@ module.exports = {
         const prefix = global.BOT_PREFIX || '.';
 
         const guideText = `
-┌─ム *XLICON V2 ᴍᴜʟᴛɪᴅᴇᴠɪᴄᴇ ɢᴜɪᴅᴇ*
+┌─ム *RAHUL AI ᴍᴜʟᴛɪᴅᴇᴠɪᴄᴇ ɢᴜɪᴅᴇ*
 ╰──────────────────╯
 
 👋 *Welcome!* This bot can do a lot!
@@ -81,7 +81,7 @@ Below is everything you need to know.
   Styles: neon, glitter, fire, shadow, gradient,
   dropwater, cloud, pixel, underwater, summer,
   thunder, pencil, leaves
-  Example: ${prefix}textpro neon | XLICON
+  Example: ${prefix}textpro neon | RAHUL AI
 
 > *Music Identification*
   ${prefix}shazam
@@ -183,7 +183,7 @@ Below is everything you need to know.
 • AI commands are available to everyone
 • Self mode restricts bot to owner only
 
-> 「 𝙏𝙞𝙢𝙚 - 𝙏𝙞𝙢𝙚𝙡𝙚𝙨𝙨 」
+> 「 POWERAD BY- RAHUL-MASTER 」
 `.trim();
 
         try {
