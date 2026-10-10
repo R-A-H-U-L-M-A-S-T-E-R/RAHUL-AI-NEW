@@ -6,7 +6,7 @@ if (!global['botStartTime']) {
 
 module.exports = {
     'name': 'menu',
-    'description': 'Animated Cyber-Theme Bot Menu with Progress Counting and Audio',
+    'description': 'Animated Cyber-Theme Bot Menu with Reliable Image, Audio, and Progress Counting',
     'aliases': ['cmdlist', 'commands', 'help'],
     
     async execute(_0x51c72f, _0x12a025) {
@@ -28,36 +28,30 @@ module.exports = {
         }
 
         // 3. Counting to 30%
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(resolve => setTimeout(resolve, 400));
         try {
             if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function' && sentMsg) {
-                await _0x51c72f.sendMessage(chatId, { text: '⚡ *[ 𝗥𝗔𝗛𝗨𝗟 - 𝗔Ｉ ]* ⚡\n> *[███▒▒▒▒▒▒▒] 30%*', edit: sentMsg.key || sentMsg });
+                await _0x51c72f.sendMessage(chatId, { text: '⚡ *[ 𝗥𝗔Ｈ𝗨𝗟 - ＡＩ ]* ⚡\n> *[███▒▒▒▒▒▒▒] 30%*', edit: sentMsg.key || sentMsg });
             }
-        } catch (e) {
-            console.log("Error 30%:", e);
-        }
+        } catch (e) {}
 
         // 4. Counting to 70%
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(resolve => setTimeout(resolve, 400));
         try {
             if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function' && sentMsg) {
-                await _0x51c72f.sendMessage(chatId, { text: '⚡ *[ 𝗥𝗔𝗛𝗨𝗟 - 𝗔𝗜 ]* ⚡\n> *[███████▒▒▒] 70%*', edit: sentMsg.key || sentMsg });
+                await _0x51c72f.sendMessage(chatId, { text: '⚡ *[ 𝗥𝗔Ｈ𝗨𝗟 - ＡＩ ]* ⚡\n> *[███████▒▒▒] 70%*', edit: sentMsg.key || sentMsg });
             }
-        } catch (e) {
-            console.log("Error 70%:", e);
-        }
+        } catch (e) {}
 
         // 5. Counting to 100%
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(resolve => setTimeout(resolve, 400));
         try {
             if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function' && sentMsg) {
-                await _0x51c72f.sendMessage(chatId, { text: '⚡ *[ 𝗥𝗔𝗛𝗨𝗟 - 𝗔𝗜 ]* ⚡\n> *[██████████] 100%*', edit: sentMsg.key || sentMsg });
+                await _0x51c72f.sendMessage(chatId, { text: '⚡ *[ 𝗥𝗔Ｈ𝗨𝗟 - ＡＩ ]* ⚡\n> *[██████████] 100%*', edit: sentMsg.key || sentMsg });
             }
-        } catch (e) {
-            console.log("Error 100%:", e);
-        }
+        } catch (e) {}
 
-        await new Promise(resolve => setTimeout(resolve, 400));
+        await new Promise(resolve => setTimeout(resolve, 300));
 
         // 6. Variables & URLs
         const prefix = global['BOT_PREFIX'] || '.';
@@ -74,7 +68,7 @@ module.exports = {
         
         // 8. Animated Cyber Menu Style
         const menuText = `
-╭━━━❮ 💠 *ＲＡＨＵＬ - ＡＩ* 🔺️ ❯━━━╮
+╭━━━❮ 💠 *ＲＡＨＵ Ｌ - ＡＩ* 🔺️ ❯━━━╮
 ┃
 ┃ ╭━━━❮ 👤 *USER DASHBOARD* ❯
 ┃ ┃ ⚡ User   : *${userName}*
@@ -152,34 +146,35 @@ module.exports = {
 ╰━━━━━━━━━━━━━━━━━━━━━━━━━╯
 > ✨ *POWERED BY RAHUL-AI* ✨`.trim();
 
-        // 9. Send Audio Message
+        // 9. Send Audio Message (Direct URL First Method)
         try {
-            const audioBuffer = (await axios.get(audioUrl, { responseType: 'arraybuffer' })).data;
             if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function') {
                 await _0x51c72f.sendMessage(chatId, { 
-                    audio: audioBuffer, 
+                    audio: { url: audioUrl }, 
                     mimetype: 'audio/mp4', 
                     ptt: true 
                 }, { quoted: _0x12a025 });
             } else {
+                const audioBuffer = (await axios.get(audioUrl, { responseType: 'arraybuffer' })).data;
                 await _0x12a025.reply(audioBuffer, { mimetype: 'audio/mp4', ptt: true });
             }
         } catch (audioErr) {
             console.log("Audio send error:", audioErr);
         }
 
-        // 10. Send Menu Image
+        // 10. Send Image Menu (Direct URL First Method)
         try {
-            const imageBuffer = (await axios.get(imageUrl, { responseType: 'arraybuffer' })).data;
             if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function') {
                 await _0x51c72f.sendMessage(chatId, {
-                    image: imageBuffer,
+                    image: { url: imageUrl },
                     caption: menuText
                 }, { quoted: _0x12a025 });
             } else {
+                const imageBuffer = (await axios.get(imageUrl, { responseType: 'arraybuffer' })).data;
                 await _0x12a025.reply(imageBuffer, { caption: menuText });
             }
         } catch (err) {
+            console.log("Image send error:", err);
             await _0x12a025.reply(menuText);
         }
     }
