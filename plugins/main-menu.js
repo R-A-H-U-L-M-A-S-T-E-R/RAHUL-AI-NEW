@@ -6,70 +6,82 @@ if (!global['botStartTime']) {
 
 module.exports = {
     name: 'menu',
-    description: 'Animated Cyber-Theme Bot Menu with Reliable Image, Audio, and Progress Counting',
+    description: 'Animated Cyber-Theme Bot Menu (Zero Error Version)',
     aliases: ['cmdlist', 'commands', 'help'],
 
     async execute(conn, m) {
         try {
             const chatId = m.chat || m.from || m.key.remoteJid;
 
-            // 1. Initial reaction
+            // 1. React
             try {
                 if (typeof m.react === 'function') {
                     await m.react('⚡');
                 }
             } catch (e) {}
 
-            // 2. Initial Counting Message (0%)
+            // 2. Step 1: 0% Loading
             let sentMsg = null;
             try {
                 if (typeof conn.sendMessage === 'function') {
                     sentMsg = await conn.sendMessage(chatId, { text: '⚡ *[ 𝗥𝗔𝗛𝗨𝗟 - 𝗔𝗜 ]* ⚡\n> *[▒▒▒▒▒▒▒▒▒▒] 0%*' }, { quoted: m });
-                } else if (typeof m.reply === 'function') {
-                    sentMsg = await m.reply('⚡ *[ 𝗥𝗔Ｈ𝗨𝗟 - 𝗔𝗜 ]* ⚡\n> *[▒▒▒▒▒▒▒▒▒▒] 0%*');
+                } else {
+                    sentMsg = await m.reply('⚡ *[ 𝗥𝗔𝗛𝗨𝗟 - 𝗔𝗜 ]* ⚡\n> *[▒▒▒▒▒▒▒▒▒▒] 0%*');
                 }
             } catch (e) {}
 
-            // 3. Counting to 30%
-            await new Promise(resolve => setTimeout(resolve, 400));
+            // Step 2: 30% (Send new message if edit fails, or skip safely)
+            await new Promise(resolve => setTimeout(resolve, 350));
             try {
                 if (sentMsg && sentMsg.key && typeof conn.sendMessage === 'function') {
-                    await conn.sendMessage(chatId, { text: '⚡ *[ 𝗥𝗔Ｈ𝗨𝗟 - ＡＩ ]* ⚡\n> *[███▒▒▒▒▒▒▒] 30%*', edit: sentMsg.key });
+                    try {
+                        await conn.sendMessage(chatId, { text: '⚡ *[ 𝗥𝗔Ｈ𝗨𝗟 - ＡＩ ]* ⚡\n> *[███▒▒▒▒▒▒▒] 30%*', edit: sentMsg.key });
+                    } catch (err) {
+                        sentMsg = await conn.sendMessage(chatId, { text: '⚡ *[ 𝗥𝗔Ｈ𝗨𝗟 - ＡＩ ]* ⚡\n> *[███▒▒▒▒▒▒▒] 30%*' }, { quoted: m });
+                    }
                 }
             } catch (e) {}
 
-            // 4. Counting to 70%
-            await new Promise(resolve => setTimeout(resolve, 400));
+            // Step 3: 70%
+            await new Promise(resolve => setTimeout(resolve, 350));
             try {
                 if (sentMsg && sentMsg.key && typeof conn.sendMessage === 'function') {
-                    await conn.sendMessage(chatId, { text: '⚡ *[ 𝗥𝗔Ｈ𝗨𝗟 - ＡＩ ]* ⚡\n> *[███████▒▒▒] 70%*', edit: sentMsg.key });
+                    try {
+                        await conn.sendMessage(chatId, { text: '⚡ *[ 𝗥𝗔Ｈ𝗨𝗟 - ＡＩ ]* ⚡\n> *[███████▒▒▒] 70%*', edit: sentMsg.key });
+                    } catch (err) {
+                        sentMsg = await conn.sendMessage(chatId, { text: '⚡ *[ 𝗥𝗔𝗛𝗨𝗟 - 𝗔𝗜 ]* ⚡\n> *[███████▒▒▒] 70%*' }, { quoted: m });
+                    }
                 }
             } catch (e) {}
 
-            // 5. Counting to 100%
-            await new Promise(resolve => setTimeout(resolve, 400));
+            // Step 4: 100%
+            await new Promise(resolve => setTimeout(resolve, 350));
             try {
                 if (sentMsg && sentMsg.key && typeof conn.sendMessage === 'function') {
-                    await conn.sendMessage(chatId, { text: '⚡ *[ 𝗥𝗔ＨＵ𝗟 - ＡＩ ]* ⚡\n> *[██████████] 100%*', edit: sentMsg.key });
+                    try {
+                        await conn.sendMessage(chatId, { text: '⚡ *[ 𝗥𝗔Ｈ𝗨𝗟 - ＡＩ ]* ⚡\n> *[██████████] 100%*', edit: sentMsg.key });
+                    } catch (err) {
+                        sentMsg = await conn.sendMessage(chatId, { text: '⚡ *[ 𝗥𝗔𝗛𝗨𝗟 - 𝗔𝗜 ]* ⚡\n> *[██████████] 100%*' }, { quoted: m });
+                    }
                 }
             } catch (e) {}
 
-            await new Promise(resolve => setTimeout(resolve, 300));
+            await new Promise(resolve => setTimeout(resolve, 200));
 
-            // 6. Variables & URLs
+            // 3. Variables & URLs
             const prefix = global['BOT_PREFIX'] || global.prefix || '.';
             const userName = m.pushName || 'User';
             const imageUrl = 'https://sam-cdn.zone.id/files/xQer9GrIVT.jpg';
             const audioUrl = 'https://spider-avik.zone.id/file/jwfyt2.mpeg';
 
-            // 7. Uptime calculation
+            // 4. Uptime calculation
             const uptimeSeconds = Math.floor((Date.now() - global['botStartTime']) / 1000);
             const hours = Math.floor(uptimeSeconds / 3600);
             const minutes = Math.floor((uptimeSeconds % 3600) / 60);
             const seconds = uptimeSeconds % 60;
             const uptimeString = `${hours}h ${minutes}m ${seconds}s`;
 
-            // 8. Animated Cyber Menu Style
+            // 5. Menu Design
             const menuText = `
 ╭━━━❮ 💠 *ＲＡＨＵＬ - ＡＩ* 🔺️ ❯━━━╮
 ┃
@@ -149,39 +161,38 @@ module.exports = {
 ╰━━━━━━━━━━━━━━━━━━━━━━━━━╯
 > ✨ *POWERED BY RAHUL-AI* ✨`.trim();
 
-            // 9. Send Audio Message (Buffer Method)
+            // 6. Send Audio (Safe Fallback)
             try {
                 const audioRes = await axios.get(audioUrl, { responseType: 'arraybuffer', timeout: 5000 });
                 const audioBuffer = Buffer.from(audioRes.data);
-
                 if (typeof conn.sendMessage === 'function') {
                     await conn.sendMessage(chatId, { audio: audioBuffer, mimetype: 'audio/mp4', ptt: true }, { quoted: m });
                 }
-            } catch (audioErr) {
-                console.log("Audio send error:", audioErr.message);
-            }
+            } catch (aErr) {}
 
-            // 10. Send Image Menu (Buffer Method with Fallback)
+            // 7. Send Image Menu (Safe Fallback)
             try {
                 const imgRes = await axios.get(imageUrl, { responseType: 'arraybuffer', timeout: 5000 });
                 const imageBuffer = Buffer.from(imgRes.data);
 
                 if (typeof conn.sendMessage === 'function') {
                     await conn.sendMessage(chatId, { image: imageBuffer, caption: menuText }, { quoted: m });
-                } else if (typeof m.reply === 'function') {
+                } else {
                     await m.reply(imageBuffer, { caption: menuText });
                 }
             } catch (err) {
-                console.log("Image send error, falling back to text:", err.message);
                 if (typeof conn.sendMessage === 'function') {
                     await conn.sendMessage(chatId, { text: menuText }, { quoted: m });
-                } else if (typeof m.reply === 'function') {
+                } else {
                     await m.reply(menuText);
                 }
             }
 
         } catch (mainErr) {
-            console.error("Menu Execution Error:", mainErr);
+            console.error("Menu Critical Error:", mainErr);
+            try {
+                await m.reply("❌ Error executing menu command.");
+            } catch (e) {}
         }
     }
 };
