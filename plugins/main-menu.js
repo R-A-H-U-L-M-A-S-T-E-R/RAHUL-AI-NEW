@@ -6,122 +6,120 @@ if (!global['botStartTime']) {
 
 module.exports = {
     name: 'menu',
-    description: 'Crystal Refraction styled WhatsApp Bot Menu with Image Loading',
-    aliases: ['help', 'cmdlist', 'commands', 'list'],
+    description: 'Animated Loading & Hexagonal Styled WhatsApp Bot Menu',
+    aliases: ['help', 'cmdlist', 'commands', 'list', 'allmenu'],
     
     async execute(m, conn) {
-        await conn.react('💎');
+        // 1. Loading Animation (Edit Message Effect)
+        let loadMsg = await conn.reply('LOADING [⬛⬜⬜⬜⬜⬜]');
+        await new Promise(r => setTimeout(r, 200));
+        await conn.edit('LOADING [⬛⬛⬛⬜⬜⬜]', loadMsg.key);
+        await new Promise(r => setTimeout(r, 200));
+        await conn.edit('LOADING [⬛⬛⬛⬛⬛⬜]', loadMsg.key);
+        await new Promise(r => setTimeout(r, 200));
+        await conn.edit('LOADING [⬛⬛⬛⬛⬛⬛]', loadMsg.key);
 
-        // Image URLs
-        const loadingImg = 'https://sam-cdn.zone.id/files/xQer9GrIVT.jpg';
+        // Banner Image
         const mainBanner = 'https://sam-cdn.zone.id/files/xQer9GrIVT.jpg';
 
-        // Helper function for sending Image with Loading Text
-        const showCrystalStage = async (captionText) => {
-            try {
-                const imgRes = await axios.get(loadingImg, { responseType: 'arraybuffer' });
-                await conn.reply(imgRes.data, { caption: captionText });
-            } catch (err) {
-                await conn.reply(captionText);
-            }
-        };
-
-        // 1. Crystal Refraction Image-Loading Sequence
-        await showCrystalStage('```[ 💎 STAGE 01 : HARVESTING RAHUL-AI ]```\n`✨ 🔮 ░░░░░░░░░ 25%`\n> *Focusing Light Rays...* 💎');
-        await new Promise(r => setTimeout(r, 250));
-
-        await showCrystalStage('```[ 🔮 STAGE 02 : PRISM REFRACTION ]```\n`💎 ✨ █████░░░░ 75%`\n> *Polishing Diamond Facets...* 🌟');
-        await new Promise(r => setTimeout(r, 250));
-
-        await showCrystalStage('```[ 🌟 STAGE 03 : RAHUL AI  VAULT READY ]```\n`💎 ⚜️ ██████████ 100%`\n> *Rahul-AI Crystal Suite Unlocked!* ✨');
-        await new Promise(r => setTimeout(r, 200));
-
-        // 2. Variables Setup
+        // Setup Variables
         const botPrefix = global['BOT_PREFIX'] || '.';
         const userName = m.pushName || 'User';
         
-        // 3. Uptime Calculation
+        // Uptime Calculation
         const uptimeSeconds = Math.floor((Date.now() - global['botStartTime']) / 1000);
         const hours = Math.floor(uptimeSeconds / 3600);
         const minutes = Math.floor((uptimeSeconds % 3600) / 60);
         const seconds = uptimeSeconds % 60;
         const uptimeString = `${hours}h ${minutes}m ${seconds}s`;
 
-        // 4. Main Menu Text Design
+        // Screenshot-style Menu Layout
         const menuText = `
-💎━━━━━⟨ *ＲＡＨＵＬ-ＡＩ* ❯━━━━💎
+┏━━━━━━━━━━━━━━━━━━━━━━┓
+┃  🤖 *ＲＡＨＵ Ｌ - ＡＩ* 🤖
+┗━━━━━━━━━━━━━━━━━━━━━━┛
+👤 *User:* ${userName}
+⏱️ *Uptime:* ${uptimeString}
+⚙️ *Prefix:* [ ${botPrefix} ]
 
- 👑 *VIP User* : ${userName}
- ⏱️ *Uptime*   : ${uptimeString}
- ⚙️ *Prefix*   : [ ${botPrefix} ]
- 🔮 *Clarity*  : RAHUL AI  DIAMOND [100%]
+┗━━━━━━━━━━━━━━━━━━━━━━┛
 
-💎 ━━━━━━━━━━━━━━━━━━━━━━━━━ 💎
+┏━━━━━⬢ *DOWNLOAD COMMAND LIST* ⬢━━━━━┓
+┃
+┃ ⬡ ${botPrefix}an1
+┃ ⬡ ${botPrefix}dl-npm
+┃ ⬡ ${botPrefix}play
+┃ ⬡ ${botPrefix}video
+┃ ⬡ ${botPrefix}drama
+┃ ⬡ ${botPrefix}apk
+┃ ⬡ ${botPrefix}fb
+┃ ⬡ ${botPrefix}gitclone
+┃ ⬡ ${botPrefix}gdrive
+┃ ⬡ ${botPrefix}mediafire
+┃ ⬡ ${botPrefix}tiktok
+┃ ⬡ ${botPrefix}ytmp3
+┃ ⬡ ${botPrefix}ytmp4
+┃ ⬡ ${botPrefix}ig
+┃ ⬡ ${botPrefix}spotify
+┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-✨ ───❮ *FACET 01 : CRYSTAL CORE* ❯───
- 💎 ${botPrefix}alive
- 💎 ${botPrefix}ping
- 💎 ${botPrefix}uptime
- 💎 ${botPrefix}owner
- 💎 ${botPrefix}botinfo
- 💎 ${botPrefix}runtime
- 💎 ${botPrefix}speed
+┏━━━━━⬢ *CORE & GENERAL LIST* ⬢━━━━━┓
+┃
+┃ ⬡ ${botPrefix}alive
+┃ ⬡ ${botPrefix}ping
+┃ ⬡ ${botPrefix}uptime
+┃ ⬡ ${botPrefix}owner
+┃ ⬡ ${botPrefix}botinfo
+┃ ⬡ ${botPrefix}runtime
+┃ ⬡ ${botPrefix}speed
+┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-✨ ───❮ *FACET 02 : VAULT DOWNLOADS* ❯───
- 💎 ${botPrefix}tiktok
- 💎 ${botPrefix}ytmp3
- 💎 ${botPrefix}ytmp4
- 💎 ${botPrefix}ig
- 💎 ${botPrefix}facebook
- 💎 ${botPrefix}spotify
- 💎 ${botPrefix}pinterest
- 💎 ${botPrefix}mp3
+┏━━━━━⬢ *AI & TOOLS LIST* ⬢━━━━━┓
+┃
+┃ ⬡ ${botPrefix}sticker
+┃ ⬡ ${botPrefix}take
+┃ ⬡ ${botPrefix}toimg
+┃ ⬡ ${botPrefix}ocr
+┃ ⬡ ${botPrefix}tts
+┃ ⬡ ${botPrefix}ai
+┃ ⬡ ${botPrefix}gen
+┃ ⬡ ${botPrefix}translate
+┃ ⬡ ${botPrefix}calc
+┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-✨ ───❮ *FACET 03 : RAHUL AI TOOLS* ❯───
- 💎 ${botPrefix}sticker
- 💎 ${botPrefix}take
- 💎 ${botPrefix}toimg
- 💎 ${botPrefix}ocr
- 💎 ${botPrefix}tts
- 💎 ${botPrefix}ai
- 💎 ${botPrefix}gen
- 💎 ${botPrefix}translate
- 💎 ${botPrefix}calc
+┏━━━━━⬢ *GAMES & FUN LIST* ⬢━━━━━┓
+┃
+┃ ⬡ ${botPrefix}blue
+┃ ⬡ ${botPrefix}flag
+┃ ⬡ ${botPrefix}guessgender
+┃ ⬡ ${botPrefix}style
+┃ ⬡ ${botPrefix}dare
+┃ ⬡ ${botPrefix}truth
+┃ ⬡ ${botPrefix}roll
+┃ ⬡ ${botPrefix}ship
+┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-✨ ───❮ *FACET 04 : LOUNGE GAMES* ❯───
- 💎 ${botPrefix}blue
- 💎 ${botPrefix}flag
- 💎 ${botPrefix}guessgender
- 💎 ${botPrefix}style
- 💎 ${botPrefix}dare
- 💎 ${botPrefix}truth
- 💎 ${botPrefix}roll
- 💎 ${botPrefix}ship
+┏━━━━━⬢ *ADMIN COMMAND LIST* ⬢━━━━━┓
+┃
+┃ ⬡ ${botPrefix}tagall
+┃ ⬡ ${botPrefix}tagme
+┃ ⬡ ${botPrefix}group
+┃ ⬡ ${botPrefix}kick
+┃ ⬡ ${botPrefix}promote
+┃ ⬡ ${botPrefix}demote
+┃ ⬡ ${botPrefix}hidetag
+┃ ⬡ ${botPrefix}antilink
+┃ ⬡ ${botPrefix}save
+┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-✨ ───❮ *FACET 05 : SPECTRUM SEARCH* ❯───
- 💎 ${botPrefix}weather
- 💎 ${botPrefix}waifu
- 💎 ${botPrefix}neko
- 💎 ${botPrefix}husbando
- 💎 ${botPrefix}google
- 💎 ${botPrefix}lyrics
- 💎 ${botPrefix}github
+> *POWERED BY RAHUL-AI*`.trim();
 
-✨ ───❮ *FACET 06 : DIAMOND ADMIN* ❯───
- 💎 ${botPrefix}tagall
- 💎 ${botPrefix}tagme
- 💎 ${botPrefix}group
- 💎 ${botPrefix}kick
- 💎 ${botPrefix}promote
- 💎 ${botPrefix}demote
- 💎 ${botPrefix}hidetag
- 💎 ${botPrefix}antilink
- 💎 ${botPrefix}save
-
-💎 ━━━━━━━━━━━━━━━━━━━━━━━━━ 💎
-> *☆ POWERED BY RAHUL AI ☆*`.trim();
-
-        // 5. Final Menu Send
+        // Send Final Menu Image
         try {
             const bannerRes = await axios.get(mainBanner, { responseType: 'arraybuffer' });
             await conn.reply(bannerRes.data, { caption: menuText });
