@@ -1,6 +1,5 @@
 const axios = require('axios');
 
-// Set bot start time if not already set
 if (!global['botStartTime']) {
     global['botStartTime'] = Date.now();
 }
@@ -10,32 +9,30 @@ module.exports = {
     'description': 'Expanded circle-themed rich bot menu with loading animation and audio',
     'aliases': ['cmdlist', 'commands', 'help'],
     
-    async execute(_0x51c72f, _0x12a025) {
-        const currentDate = new Date();
+    async execute(conn, m) {
+        // 1. Initial reaction
+        await m.react('⭕');
         
-        // 1. Send initial reaction
-        await _0x12a025.react('⭕');
+        // 2. Loading message
+        await m.reply('⚡ *[ ＲＡＨＵＬ - ＡＩ ]* ⚡\n> *COMPETING RAHUL MENU ... 🔄*');
         
-        // 2. Send loading message
-        const loadingMsg = await _0x12a025.reply('⚡ *[ ＲＡＨＵＬ - ＡＩ ]* ⚡\n> *COMPETING RAHUL MENU ... 🔄*');
-        
-        // 3. Wait for 1 second (Loading animation effect)
+        // 3. Wait 1 second
         await new Promise(resolve => setTimeout(resolve, 1000));
         
-        // 4. Get Bot Prefix, User Name, Header Image URL, and Audio URL
+        // 4. Variables
         const prefix = global['BOT_PREFIX'] || '.';
-        const userName = _0x12a025.pushName || 'User';
+        const userName = m.pushName || 'User';
         const imageUrl = 'https://sam-cdn.zone.id/files/xQer9GrIVT.jpg';
         const audioUrl = 'https://sam-cdn.zone.id/files/3QG5SVPjtO.ogv';
         
-        // 5. Calculate Uptime (How long the bot has been running)
+        // 5. Uptime calculation
         const uptimeSeconds = Math.floor((Date.now() - global['botStartTime']) / 1000);
         const hours = Math.floor(uptimeSeconds / 3600);
         const minutes = Math.floor((uptimeSeconds % 3600) / 60);
         const seconds = uptimeSeconds % 60;
         const uptimeString = `${hours}h ${minutes}m ${seconds}s`;
         
-        // 6. Main Menu Text Design
+        // 6. Menu Text Design
         const menuText = `
 ⭕ ─── *𝗥𝗔𝗛𝗨𝗟-𝗔𝗜* ─── ⭕
 │
@@ -110,20 +107,35 @@ module.exports = {
 ⭕──────────────────────────────⭕
 > *✨ RAHUL-AI MENU COMPLETED*`.trim();
 
-        // 7. Send audio first as a voice note
+        // 7. Send Audio Message
         try {
-            const audioBuffer = (await axios.get(audioUrl, { 'responseType': 'arraybuffer' })).data;
-            await _0x12a025.reply(audioBuffer, { mimetype: 'audio/mp4', ptt: true });
+            if (conn && conn.sendMessage) {
+                await conn.sendMessage(m.chat || m.from, { 
+                    audio: { url: audioUrl }, 
+                    mimetype: 'audio/ogg; codecs=opus', 
+                    ptt: true 
+                }, { quoted: m });
+            } else {
+                const audioBuffer = (await axios.get(audioUrl, { responseType: 'arraybuffer' })).data;
+                await m.reply(audioBuffer, { mimetype: 'audio/ogg; codecs=opus', ptt: true });
+            }
         } catch (audioError) {
-            console.log('Failed to send audio:', audioError);
+            console.log('Audio error:', audioError);
         }
 
-        // 8. Send menu with image caption, fallback to text if image fetch fails
+        // 8. Send Image Menu Message
         try {
-            const imageBuffer = (await axios.get(imageUrl, { 'responseType': 'arraybuffer' })).data;
-            await _0x12a025.reply(imageBuffer, { 'caption': menuText });
+            if (conn && conn.sendMessage) {
+                await conn.sendMessage(m.chat || m.from, {
+                    image: { url: imageUrl },
+                    caption: menuText
+                }, { quoted: m });
+            } else {
+                const imageBuffer = (await axios.get(imageUrl, { responseType: 'arraybuffer' })).data;
+                await m.reply(imageBuffer, { caption: menuText });
+            }
         } catch (error) {
-            await _0x12a025.reply(menuText);
+            await m.reply(menuText);
         }
     }
 };
