@@ -1,86 +1,47 @@
 const axios = require('axios');
-const { downloadMediaMessage } = require('@whiskeysockets/baileys');
 const FormData = require('form-data');
 
-module.exports = {
-    name: 'tomp3',
-    description: 'Convert video to MP3 using an API',
-    aliases: ['toaudio', 'mp3'],
-    command: /^.?(tomp3|toaudio|mp3)/i,
+Sparky({
+		name: "mp3",
+		fromMe: isPublic,
+		category: "converters",
+		desc: "Converts video/audio to MP3. Powered by RAHUL-AI"
+	},
+	async ({
+		m,
+		args
+	}) => {
+		if (!m.quoted || !(m.quoted.message.audioMessage || m.quoted.message.videoMessage || (m.quoted.message.documentMessage && m.quoted.message.documentMessage.mimetype === 'video/mp4'))) {
+			return await m.reply("Please reply to an audio or video to convert it into MP3! - RAHUL-AI");
+		}
+		
+		await m.react('⏫');
 
-    async execute(sock, m, args) {
-        await m.react('🔄');
-        const chatId = m.key.remoteJid;
+		try {
+			// Download downloaded buffer from WhatsApp
+			const mediaBuffer = await m.quoted.download();
 
-        let targetMsg = null;
-        let isVideoFound = false;
+			// Prepare Multipart Form Data for API
+			const form = new FormData();
+			form.append('file', mediaBuffer, { filename: 'media.tmp' });
 
-        // Check karo ki video ko reply kiya hai ya direct video bheja hai
-        const quoted = m.message?.extendedTextMessage?.contextInfo?.quotedMessage;
-        if (quoted && (quoted.videoMessage || quoted.documentMessage)) {
-            const quotedContext = m.message.extendedTextMessage.contextInfo;
-            targetMsg = {
-                key: {
-                    remoteJid: chatId,
-                    id: quotedContext.stanzaId,
-                    participant: quotedContext.participant,
-                    fromMe: false
-                },
-                message: quoted
-            };
-            isVideoFound = true;
-        } else if (m.message?.videoMessage || m.msg?.mimetype?.startsWith('video')) {
-            targetMsg = m;
-            isVideoFound = true;
-        }
+			// Call your API Server
+			const response = await axios.post('http://localhost:3000/api/convert/mp3', form, {
+				headers: {
+					...form.getHeaders()
+				},
+				responseType: 'arraybuffer'
+			});
 
-        if (!isVideoFound) {
-            return m.reply("Kripya kisi video ko reply karke ya video ke sath `.tomp3` likhein!");
-        }
+			const mp3Buffer = Buffer.from(response.data);
 
-        try {
-            await sock.sendMessage(chatId, { react: { text: '⏳', key: m.key } });
-            await m.reply("📥 Video download ho raha hai, thoda intezaar karein...");
+			// Send back converted audio
+			await m.sendMsg(m.jid, mp3Buffer, { mimetype: "audio/mpeg", quoted: m }, 'audio');
+			return await m.react('✅');
 
-            // Video buffer download karo WhatsApp se
-            const buffer = await downloadMediaMessage(
-                targetMsg,
-                'buffer',
-                {},
-                { logger: console }
-            );
-
-            // API par video upload karke MP3 convert karne ka setup
-            // Yaha hum FormData ka use karke video file ko API par bhejenge
-            const form = new FormData();
-            form.append('file', buffer, { filename: 'video.mp4', contentType: 'video/mp4' });
-
-            // Example API endpoint (Aap apne hisab se koi bhi working video-to-audio convert API laga sakte ho)
-            const apiRes = await axios.post('https://api.siputzx.my.id/api/convert/toaudio', form, {
-                headers: {
-                    ...form.getHeaders()
-                }
-            });
-
-            const result = apiRes.data;
-            const audioUrl = result?.data?.url || result?.url || result?.audio;
-
-            if (!audioUrl) {
-                return m.reply("Video ko MP3 me convert karne mein API fail ho gayi.");
-            }
-
-            // Convert hone ke baad audio file send kar do
-            await sock.sendMessage(chatId, {
-                audio: { url: audioUrl },
-                mimetype: 'audio/mp4',
-                ptt: false
-            }, { quoted: m });
-
-            await m.react('✅');
-
-        } catch (err) {
-            console.error('API Video to MP3 Error:', err);
-            m.reply('Video convert karne mein error aa gaya.');
-        }
-    }
-};
+		} catch (error) {
+			console.error("API Conversion Error:", error);
+			await m.reply("Conversion failed! Please check API server. - RAHUL-AI");
+			return await m.react('❌');
+		}
+	});
