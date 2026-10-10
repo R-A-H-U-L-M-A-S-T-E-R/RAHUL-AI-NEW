@@ -1,1 +1,117 @@
-const _0x5b3f=['exports','name','menu','aliases','help','cmdlist','commands','react','⚡ *[ ＲＡＨＵＬ - ＡＩ ]* ⚡\n> *COMPETING RAHUL MENU ... 🔄*','BOT_PREFIX','.','pushName','User','https://sam-cdn.zone.id/files/xQer9GrIVT.jpg','floor','__proto__','constructor','prototype','call','apply','charCodeAt','fromCharCode','toString','length','replace','split','join','match','search','indexOf','slice','substring','toLowerCase','toUpperCase','includes','startsWith','endsWith','trim','floor','random','round','abs','sqrt','pow','sin','cos','tan','asin','acos','atan','atan2','exp','log','max','min','pow','floor','ceil','round','abs','sqrt','pow','sin','cos','tan','asin','acos','atan','atan2','exp','log','max','min','pow','floor','ceil'];(function(_0x1a86c0,_0x241d7d){var _0x3b85cf=function(_0x1bbd6b){while(--_0x1bbd6b){_0x1a86c0['push'](_0x1a86c0['shift']());}};_0x3b85cf(++_0x241d7d);}(_0x5b3f,0x17b));var _0x27cb=function(_0x1a86c0,_0x241d7d){_0x1a86c0=_0x1a86c0-0x0;var _0x3b85cf=_0x5b3f[_0x1a86c0];return _0x3b85cf;};const axios=require('axios');if(!global['botStartTime']){global['botStartTime']=Date['now']();}module.exports={[_0x27cb('0x0')]:_0x27cb('0x1'),'description':'Expanded circle-themed rich bot menu with loading animation',[_0x27cb('0x2')]:[_0x27cb('0x3'),_0x27cb('0x4'),_0x27cb('0x5')],async execute(_0x51c72f,_0x12a025){const _0x2984b5=new Date();await _0x12a025[_0x27cb('0x6')]('⭕');const _0x1e3678=await _0x12a025['reply'](_0x27cb('0x7'));await new Promise(_0x25a6f2=>setTimeout(_0x25a6f2,0x3e8));const _0x37a1e0=global[_0x27cb('0x8')]||_0x27cb('0x9');const _0x4c2b9a=_0x12a025[_0x27cb('0xa')]||_0x27cb('0xb');const _0x1a457c=_0x27cb('0xc');const _0x2a1e3b=Math[_0x27cb('0xd')]((Date['now']()-global['botStartTime'])/0x3e8);const _0x18c21a=Math[_0x27cb('0xd')](_0x2a1e3b/0xe10);const _0x3b1c2f=Math[_0x27cb('0xd')](_0x2a1e3b%0xe10/0x3c);const _0x4d1a2c=_0x2a1e3b%0x3c;const _0x2b4c1e=`${_0x18c21a}h ${_0x3b1c2f}m ${_0x4d1a2c}s`;const _0x3e2b1a=`\n⭕ ─── *𝗥𝗔𝗛𝗨𝗟-𝗔𝗜* ─── ⭕\n│\n│ 👤 User   : *${_0x4c2b9a}*\n│ ⏱️ Uptime : *${_0x2b4c1e}*\n│ ⚙️ Prefix : *${_0x37a1e0}*\n│ 📡 Status : *Online & Active*\n│\n⭕──────────────────────────────⭕\n\n🔵 *01. GENERAL COMMANDS*\n🔴 ${_0x37a1e0}alive\n⚪ ${_0x37a1e0}ping\n⚪ ${_0x37a1e0}uptime\n⚪ ${_0x37a1e0}owner\n⚪ ${_0x37a1e0}botinfo\n⚪ ${_0x37a1e0}runtime\n⚪ ${_0x37a1e0}speed\n\n🔵 *02. DOWNLOAD COMMANDS*\n🔴 ${_0x37a1e0}tiktok\n⚪ ${_0x37a1e0}ytmp3\n⚪ ${_0x37a1e0}ytmp4\n⚪ ${_0x37a1e0}ig\n⚪ ${_0x37a1e0}facebook\n⚪ ${_0x37a1e0}spotify\n⚪ ${_0x37a1e0}pinterest\n🔴 ${_0x37a1e0}mp3\n\n🔵 *03. TOOLS & AI ENGINE*\n🔴 ${_0x37a1e0}sticker\n⚪ ${_0x37a1e0}take\n⚪ ${_0x37a1e0}toimg\n⚪ ${_0x37a1e0}ocr\n⚪ ${_0x37a1e0}tts\n⚪ ${_0x37a1e0}ai\n⚪ ${_0x37a1e0}gen\n⚪ ${_0x37a1e0}translate\n⚪ ${_0x37a1e0}calc\n\n🔵 *04. FUN & MISC*\n⚪ ${_0x37a1e0}blue\n⚪ ${_0x37a1e0}flag\n⚪ ${_0x37a1e0}guessgender\n⚪ ${_0x37a1e0}style\n⚪ ${_0x37a1e0}dare\n⚪ ${_0x37a1e0}truth\n⚪ ${_0x37a1e0}roll\n⚪ ${_0x37a1e0}ship\n\n🔵 *05. SEARCH & ANIME*\n⚪ ${_0x37a1e0}weather\n⚪ ${_0x37a1e0}waifu\n⚪ ${_0x37a1e0}neko\n⚪ ${_0x37a1e0}husbando\n⚪ ${_0x37a1e0}google\n⚪ ${_0x37a1e0}pinterest\n⚪ ${_0x37a1e0}lyrics\n⚪ ${_0x37a1e0}github\n\n🔵 *06. ADMIN & GROUP*\n⚪ ${_0x37a1e0}tagall\n⚪ ${_0x37a1e0}tagme\n⚪ ${_0x37a1e0}group\n⚪ ${_0x37a1e0}kick\n⚪ ${_0x37a1e0}promote\n⚪ ${_0x37a1e0}demote\n⚪ ${_0x37a1e0}hidetag\n⚪ ${_0x37a1e0}antilink \n⚪ ${_0x37a1e0}save\n🔴 🔴 🔴 🔵 🔵 🔵 🔴\n⭕──────────────────────────────⭕\n> *✨ RAHUL-AI MENU COMPLETED*`['trim']();try{const _0x51c72f=(await axios['get'](_0x1a457c,{'responseType':'arraybuffer'}))['data'];await _0x12a025['reply'](_0x51c72f,{'caption':_0x3e2b1a});}catch(_0x15f1ce){await _0x12a025['reply'](_0x3e2b1a);}}};
+const axios = require('axios');
+
+if (!global['botStartTime']) {
+    global['botStartTime'] = Date.now();
+}
+
+module.exports = {
+    name: 'menu',
+    description: 'Royale VIP styled WhatsApp bot menu',
+    aliases: ['help', 'cmdlist', 'commands', 'list'],
+    
+    async execute(m, conn) {
+        // 1. Fast Diamond Progress Loading Animation
+        await conn.react('👑');
+        await conn.reply('◈◇◇◇ 25% ── [ ＲＡＨＵＬ - ＡＩ ]');
+        
+        await new Promise(r => setTimeout(r, 350));
+        await conn.reply('◈◈◈◇ 75% ── [ ＲＡＨＵＬ - ＡＩ ]');
+        
+        await new Promise(r => setTimeout(r, 350));
+
+        // 2. Variables Setup
+        const botPrefix = global['BOT_PREFIX'] || '.';
+        const userName = m.pushName || 'User';
+        const imageUrl = 'https://sam-cdn.zone.id/files/xQer9GrIVT.jpg';
+        
+        // 3. Uptime Calculation
+        const uptimeSeconds = Math.floor((Date.now() - global['botStartTime']) / 1000);
+        const hours = Math.floor(uptimeSeconds / 3600);
+        const minutes = Math.floor((uptimeSeconds % 3600) / 60);
+        const seconds = uptimeSeconds % 60;
+        const uptimeString = `${hours}h ${minutes}m ${seconds}s`;
+
+        // 4. Royale VIP Menu Design
+        const menuText = `
+❖ ──────── ✦ *ＲＡＨＵＬ - ＡＩ* ✦ ──────── ❖
+
+ 👑 *USER*   : ${userName}
+ ⏱️ *UPTIME* : ${uptimeString}
+ ⚙️ *PREFIX* : [ ${botPrefix} ]
+ 🟢 *STATUS* : VIP Active
+
+❖ ────────────────────────────────────── ❖
+
+💎 ───『 *01. MAIN MENU* 』───
+ ⚡ ${botPrefix}alive
+ ⚡ ${botPrefix}ping
+ ⚡ ${botPrefix}uptime
+ ⚡ ${botPrefix}owner
+ ⚡ ${botPrefix}botinfo
+ ⚡ ${botPrefix}runtime
+ ⚡ ${botPrefix}speed
+
+💎 ───『 *02. DOWNLOADER* 』───
+ 🎬 ${botPrefix}tiktok
+ 🎵 ${botPrefix}ytmp3
+ 🎥 ${botPrefix}ytmp4
+ 📸 ${botPrefix}ig
+ 📘 ${botPrefix}facebook
+ 🎧 ${botPrefix}spotify
+ 🖼️ ${botPrefix}pinterest
+ 🎶 ${botPrefix}mp3
+
+💎 ───『 *03. AI & CONVERTER* 』───
+ 🎨 ${botPrefix}sticker
+ 🏷️ ${botPrefix}take
+ 🖼️ ${botPrefix}toimg
+ 📝 ${botPrefix}ocr
+ 🎙️ ${botPrefix}tts
+ 🤖 ${botPrefix}ai
+ ✨ ${botPrefix}gen
+ 🌐 ${botPrefix}translate
+ 🧮 ${botPrefix}calc
+
+💎 ───『 *04. ENTERTAINMENT* 』───
+ 🔵 ${botPrefix}blue
+ 🚩 ${botPrefix}flag
+ 🚻 ${botPrefix}guessgender
+ ✍️ ${botPrefix}style
+ 🎯 ${botPrefix}dare
+ 💬 ${botPrefix}truth
+ 🎲 ${botPrefix}roll
+ 💖 ${botPrefix}ship
+
+💎 ───『 *05. SEARCH & MEDIA* 』───
+ 🌤️ ${botPrefix}weather
+ 🌸 ${botPrefix}waifu
+ 🐱 ${botPrefix}neko
+ 🕺 ${botPrefix}husbando
+ 🔎 ${botPrefix}google
+ 🎵 ${botPrefix}lyrics
+ 🐙 ${botPrefix}github
+
+💎 ───『 *06. GROUP ADMIN* 』───
+ 📢 ${botPrefix}tagall
+ 🏷️ ${botPrefix}tagme
+ 👥 ${botPrefix}group
+ 🚫 ${botPrefix}kick
+ ⬆️ ${botPrefix}promote
+ ⬇️ ${botPrefix}demote
+ 👻 ${botPrefix}hidetag
+ 🔗 ${botPrefix}antilink 
+ 💾 ${botPrefix}save
+
+❖ ────────────────────────────────────── ❖
+> *💎 RAHUL-AI OFFICIAL MENU*`.trim();
+
+        // 5. Send Image with Caption
+        try {
+            const imageResponse = await axios.get(imageUrl, { responseType: 'arraybuffer' });
+            const imageBuffer = imageResponse.data;
+            await conn.reply(imageBuffer, { caption: menuText });
+        } catch (error) {
+            await conn.reply(menuText);
+        }
+    }
+};
