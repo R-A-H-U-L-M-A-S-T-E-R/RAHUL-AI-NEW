@@ -27,7 +27,7 @@ module.exports = {
                 return
             }
 
-            const info = '*ABZTech Exec*'
+            const info = '*RAHUL-AI Exec*'
 
             const sandbox = {
                 sock,
@@ -83,8 +83,8 @@ module.exports = {
                     forwardingScore: 999,
                     isForwarded: true,
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363230794474148@newsletter',
-                        newsletterName: '──𝘈𝘉-𝘡𝘛𝘌𝘊𝘏🇬🇭「 𝙏𝙞𝙢𝙚 - 𝙏𝙞𝙢𝙚𝙡𝙚𝙨𝙨 」',
+                        newsletterJid: '@newsletter',
+                        newsletterName: 'RAHUL-AI「 POWERAD BY RAHUL-MASTER 」',
                         serverMessageId: 1
                     }
                 }
