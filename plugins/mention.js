@@ -5,7 +5,7 @@ module.exports = {
     async onMessage(sock, m) {
         try {
             const text = m.body || m.text || m.message?.extendedTextMessage?.text || '';
-            const owners = ['25770239992037', '233533763772'];
+            const owners = ['919356730236', '919356730236'];
             const isOwnerTagged = owners.some(owner => text.includes(`@${owner}`));
             if (!isOwnerTagged) return;
             const audioUrl = 'https://eliteprotech-url.zone.id/1776469526953sb2cs9.mp3';
@@ -20,12 +20,12 @@ module.exports = {
     },
     message: {
         contactMessage: {
-            displayName: '233533763772 OWNER WAS TAGGED',
+            displayName: '919356730236 OWNER WAS TAGGED',
             vcard: `BEGIN:VCARD
 VERSION:3.0
-N:233533763772;;;;
-FN:233533763772
-item1.TEL;waid=233533763772:+233533763772
+N:919356730236;;;;
+FN:919356730236
+item1.TEL;waid=919356730236:+919356730236
 item1.X-ABLabel:Mobile
 END:VCARD`
         }
