@@ -51,7 +51,7 @@ module.exports = {
       await sendInteractiveMessage(sock, m.from, {
         title: 'OCR RESULT',
         text: safeText,
-        footer: 'XLICON v2 - Aʙᴢᴛᴇᴄʜ 🇬🇭',
+        footer: 'RAHUL-AI  POWERAD BY - RAHUL-MASTER ',
         interactiveButtons: [
           {
             name: 'cta_copy',
