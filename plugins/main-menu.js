@@ -36,7 +36,7 @@ module.exports = {
         // Screenshot-style Menu Layout
         const menuText = `
 ┏━━━━━━━━━━━━━━━━━━━━━━┓
-┃  🤖 *ＲＡＨＵ Ｌ - ＡＩ* 🤖
+┃  🤖 *ＲＡＨＵＬ - ＡＩ* 🤖
 ┗━━━━━━━━━━━━━━━━━━━━━━┛
 👤 *User:* ${userName}
 ⏱️ *Uptime:* ${uptimeString}
