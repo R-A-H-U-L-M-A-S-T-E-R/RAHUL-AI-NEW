@@ -27,13 +27,13 @@ module.exports = {
         };
 
         // 1. Crystal Refraction Image-Loading Sequence
-        await showCrystalStage('```[ 💎 STAGE 01 : HARVESTING CRYSTALS ]```\n`✨ 🔮 ░░░░░░░░░ 25%`\n> *Focusing Light Rays...* 💎');
+        await showCrystalStage('```[ 💎 STAGE 01 : HARVESTING RAHUL-AI ]```\n`✨ 🔮 ░░░░░░░░░ 25%`\n> *Focusing Light Rays...* 💎');
         await new Promise(r => setTimeout(r, 250));
 
         await showCrystalStage('```[ 🔮 STAGE 02 : PRISM REFRACTION ]```\n`💎 ✨ █████░░░░ 75%`\n> *Polishing Diamond Facets...* 🌟');
         await new Promise(r => setTimeout(r, 250));
 
-        await showCrystalStage('```[ 🌟 STAGE 03 : CRYSTAL VAULT READY ]```\n`💎 ⚜️ ██████████ 100%`\n> *Rahul-AI Crystal Suite Unlocked!* ✨');
+        await showCrystalStage('```[ 🌟 STAGE 03 : RAHUL AI  VAULT READY ]```\n`💎 ⚜️ ██████████ 100%`\n> *Rahul-AI Crystal Suite Unlocked!* ✨');
         await new Promise(r => setTimeout(r, 200));
 
         // 2. Variables Setup
@@ -49,12 +49,12 @@ module.exports = {
 
         // 4. Main Menu Text Design
         const menuText = `
-💎 ━━━━━━━⟨ *ＲＡＨＵＬ - ＡＩ* ❯━━━━━━━ 💎
+💎━━━━━━━⟨ *ＲＡＨＵＬ-ＡＩ* ❯━━━━━━💎
 
  👑 *VIP User* : ${userName}
  ⏱️ *Uptime*   : ${uptimeString}
  ⚙️ *Prefix*   : [ ${botPrefix} ]
- 🔮 *Clarity*  : Pure Diamond [100%]
+ 🔮 *Clarity*  : RAHUL AI  DIAMOND [100%]
 
 💎 ━━━━━━━━━━━━━━━━━━━━━━━━━ 💎
 
@@ -77,7 +77,7 @@ module.exports = {
  💎 ${botPrefix}pinterest
  💎 ${botPrefix}mp3
 
-✨ ───❮ *FACET 03 : PRISM AI TOOLS* ❯───
+✨ ───❮ *FACET 03 : RAHUL AI TOOLS* ❯───
  💎 ${botPrefix}sticker
  💎 ${botPrefix}take
  💎 ${botPrefix}toimg
@@ -119,7 +119,7 @@ module.exports = {
  💎 ${botPrefix}save
 
 💎 ━━━━━━━━━━━━━━━━━━━━━━━━━ 💎
-> *✨ Powered by Rahul-AI Crystal Engine*`.trim();
+> *☆ POWERED BY RAHUL AI ☆*`.trim();
 
         // 5. Final Menu Send
         try {
