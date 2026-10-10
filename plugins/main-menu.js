@@ -11,7 +11,7 @@ module.exports = {
     
     async execute(_0x51c72f, _0x12a025) {
         // 1. Initial reaction with lighting effect
-        await _0x12a025.react('⚡');
+        await _0x12a025.react('🎉');
         
         // 2. Animated Loading Effect (3 Steps)
         const loadingMsg = await _0x12a025.reply('⚡ *[ ＲＡＨＵ Ｌ - ＡＩ ]* ⚡\n> *[▒▒▒▒▒▒▒▒▒▒] 0%*');
@@ -23,7 +23,7 @@ module.exports = {
         
         await new Promise(resolve => setTimeout(resolve, 500));
         if (loadingMsg && loadingMsg.edit) {
-            await loadingMsg.edit('⚡ *[ ＲＡＨＵ Ｌ - ＡＩ ]* ⚡\n> *[██████████] 100%*');
+            await loadingMsg.edit('⚡ *[ ＲＡＨＵ Ｌ -  ＡＩ ]* ⚡\n> *[██████████] 100%*');
         }
 
         // 3. Variables & URLs
@@ -41,7 +41,7 @@ module.exports = {
         
         // 5. Animated Cyber Menu Style
         const menuText = `
-╭━━━❮ ⚡ *ＲＡＨＵＬ - ＡＩ* ⚡ ❯━━━╮
+╭━━━❮ 💠 *ＲＡＨＵＬ - ＡＩ* 🔺️ ❯━━━╮
 ┃
 ┃ ╭━━━❮ 👤 *USER DASHBOARD* ❯
 ┃ ┃ ⚡ User   : *${userName}*
@@ -52,69 +52,69 @@ module.exports = {
 ┃
 ┃ ╭━━━❮ 🔵 *01. GENERAL* ❯
 ┃ ┃ 🔴 ${prefix}alive
-┃ ┃ ⚪ ${prefix}ping
-┃ ┃ ⚪ ${prefix}uptime
-┃ ┃ ⚪ ${prefix}owner
-┃ ┃ ⚪ ${prefix}botinfo
-┃ ┃ ⚪ ${prefix}runtime
-┃ ┃ ⚪ ${prefix}speed
+┃ ┃ 🟣 ${prefix}ping
+┃ ┃ 🟠 ${prefix}uptime
+┃ ┃ 🟢 ${prefix}owner
+┃ ┃ 🟡 ${prefix}botinfo
+┃ ┃ 🔴 ${prefix}runtime
+┃ ┃ 🔵 ${prefix}speed
 ┃ ╰━━━━━━━━━━━━━━━━━━━━━
 ┃
 ┃ ╭━━━❮ 🔵 *02. DOWNLOADS* ❯
 ┃ ┃ 🔴 ${prefix}tiktok
-┃ ┃ ⚪ ${prefix}ytmp3
-┃ ┃ ⚪ ${prefix}ytmp4
-┃ ┃ ⚪ ${prefix}ig
-┃ ┃ ⚪ ${prefix}facebook
-┃ ┃ ⚪ ${prefix}spotify
-┃ ┃ ⚪ ${prefix}pinterest
+┃ ┃ 🟠 ${prefix}ytmp3
+┃ ┃ 🟢 ${prefix}ytmp4
+┃ ┃ 🔴 ${prefix}ig
+┃ ┃ 🔵 ${prefix}facebook
+┃ ┃ 🔵 ${prefix}spotify
+┃ ┃ 🟣 ${prefix}pinterest
 ┃ ┃ 🔴 ${prefix}mp3
 ┃ ╰━━━━━━━━━━━━━━━━━━━━━
 ┃
 ┃ ╭━━━❮ 🔵 *03. TOOLS & AI* ❯
 ┃ ┃ 🔴 ${prefix}sticker
-┃ ┃ ⚪ ${prefix}take
-┃ ┃ ⚪ ${prefix}toimg
-┃ ┃ ⚪ ${prefix}ocr
-┃ ┃ ⚪ ${prefix}tts
-┃ ┃ ⚪ ${prefix}ai
-┃ ┃ ⚪ ${prefix}gen
-┃ ┃ ⚪ ${prefix}translate
+┃ ┃ 🔴 ${prefix}take
+┃ ┃ 🔵 ${prefix}toimg
+┃ ┃ 🔵 ${prefix}ocr
+┃ ┃ 🟠 ${prefix}tts
+┃ ┃ 🟠 ${prefix}ai
+┃ ┃ 🔴 ${prefix}gen
+┃ ┃ 🟡 ${prefix}translate
 ┃ ┃ ⚪ ${prefix}calc
 ┃ ╰━━━━━━━━━━━━━━━━━━━━━
 ┃
 ┃ ╭━━━❮ 🔵 *04. FUN & MISC* ❯
-┃ ┃ ⚪ ${prefix}blue
+┃ ┃ 🟠 ${prefix}blue
 ┃ ┃ ⚪ ${prefix}flag
-┃ ┃ ⚪ ${prefix}guessgender
-┃ ┃ ⚪ ${prefix}style
+┃ ┃ 🟢 ${prefix}guessgender
+┃ ┃ 🟠 ${prefix}style
 ┃ ┃ ⚪ ${prefix}dare
-┃ ┃ ⚪ ${prefix}truth
-┃ ┃ ⚪ ${prefix}roll
-┃ ┃ ⚪ ${prefix}ship
+┃ ┃ 🟢 ${prefix}truth
+┃ ┃ 🔵 ${prefix}roll
+┃ ┃ 🔴 ${prefix}ship
 ┃ ╰━━━━━━━━━━━━━━━━━━━━━
 ┃
 ┃ ╭━━━❮ 🔵 *05. SEARCH & ANIME* ❯
-┃ ┃ ⚪ ${prefix}weather
-┃ ┃ ⚪ ${prefix}waifu
-┃ ┃ ⚪ ${prefix}neko
-┃ ┃ ⚪ ${prefix}husbando
-┃ ┃ ⚪ ${prefix}google
-┃ ┃ ⚪ ${prefix}pinterest
-┃ ┃ ⚪ ${prefix}lyrics
+┃ ┃ 🔵 ${prefix}weather
+┃ ┃ 🔴 ${prefix}waifu
+┃ ┃ 🟣 ${prefix}neko
+┃ ┃ 🔵 ${prefix}husbando
+┃ ┃ ⚫️ ${prefix}google
+┃ ┃ 🟢 ${prefix}pinterest
+┃ ┃ 🟡 ${prefix}lyrics
 ┃ ┃ ⚪ ${prefix}github
 ┃ ╰━━━━━━━━━━━━━━━━━━━━━
 ┃
 ┃ ╭━━━❮ 🔵 *06. ADMIN & GROUP* ❯
-┃ ┃ ⚪ ${prefix}tagall
+┃ ┃ 🟠 ${prefix}tagall
 ┃ ┃ ⚪ ${prefix}tagme
-┃ ┃ ⚪ ${prefix}group
-┃ ┃ ⚪ ${prefix}kick
-┃ ┃ ⚪ ${prefix}promote
-┃ ┃ ⚪ ${prefix}demote
-┃ ┃ ⚪ ${prefix}hidetag
-┃ ┃ ⚪ ${prefix}antilink
-┃ ┃ ⚪ ${prefix}save
+┃ ┃ 🟢 ${prefix}group
+┃ ┃ 🟧 ${prefix}kick
+┃ ┃ ⬜️ ${prefix}promote
+┃ ┃ 🟩 ${prefix}demote
+┃ ┃ 🔴 ${prefix}hidetag
+┃ ┃ 🟢 ${prefix}antilink
+┃ ┃ 🔵 ${prefix}save
 ┃ ╰━━━━━━━━━━━━━━━━━━━━━
 ╰━━━━━━━━━━━━━━━━━━━━━━━━━╯
 > ✨ *POWERED BY RAHUL-AI* ✨`.trim();
