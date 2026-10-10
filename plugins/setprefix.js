@@ -5,22 +5,27 @@ module.exports = {
     name: 'setprefix',
     aliases: ['prefix', 'changeprefix'],
     description: 'Change the command prefix (Owner only)',
+    withoutPrefix: true, // This allows the command to run without typing a prefix
 
     async execute(sock, m, args) {
         if (!global.owners.includes(m.sender)) {
             return m.reply('❌ You are not allowed to change the prefix.');
         }
 
-        if (!args[0]) {
+        let newPrefix = args[0];
+
+        if (!newPrefix) {
             return m.reply(
-                `📝 Usage: ${global.BOT_PREFIX}setprefix <newPrefix>\n` +
-                `Example: ${global.BOT_PREFIX}setprefix !`
+                `📝 Usage: setprefix <newPrefix>\n` +
+                `Example: setprefix !\n` +
+                `To remove prefix completely: setprefix none`
             );
         }
 
-        const newPrefix = args[0];
-
-        if (newPrefix.length > 3) {
+        // Optional: Allow typing "none" or "empty" to clear the prefix completely
+        if (newPrefix.toLowerCase() === 'none' || newPrefix.toLowerCase() === 'noprefix') {
+            newPrefix = '';
+        } else if (newPrefix.length > 3) {
             return m.reply('❌ Prefix must be 3 characters or less.');
         }
 
@@ -52,7 +57,9 @@ module.exports = {
         }
 
         return m.reply(
-            `✅ Prefix successfully changed to: \`${newPrefix}\``
+            newPrefix === '' 
+                ? '✅ Prefix disabled! Commands can now be run without any prefix.' 
+                : `✅ Prefix successfully changed to: \`${newPrefix}\``
         );
     }
 };
