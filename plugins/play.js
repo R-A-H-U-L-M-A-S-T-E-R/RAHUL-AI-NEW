@@ -4,12 +4,12 @@ const yts = require('yt-search');
 
 module.exports = {
     name: 'play',
-    description: 'Search YouTube with image in loadingMsg',
+    description: 'Search YouTube with image loading effect and percentage count',
     aliases: ['yt', 'song'],
     command: /^.?(play|yt|song)/i,
 
     async execute(sock, m, args) {
-        await m.react('⚡');
+        await m.react('🔥');
         const prefix = global.BOT_PREFIX || '.';
         const chatId = m.key.remoteJid;
         const query = args.join(" ").trim();
@@ -18,17 +18,21 @@ module.exports = {
             return m.reply(`> ⚠️ *Usage Error:* \`${prefix}play <song name or link>\``);
         }
 
-        const imageUrl = 'https://sam-cdn.zone.id/files/QyFk2yt61I.jpg';
+        const customImageUrl = 'https://sam-cdn.zone.id/files/QyFk2yt61I.jpg';
 
-        // 1. Loading Message सोबत Image पाठवणे
-        let loadingMsg = await sock.sendMessage(chatId, {
-            image: { url: imageUrl },
-            caption: `\`[ ⚡ 10% ]\` ───▸ *Searching for song...*`
+        // 1. Initial Loading Message with Image (10%)
+        let loadingMsg = await sock.sendMessage(chatId, { 
+            image: { url: customImageUrl },
+            caption: `\`[ 💎 STAGE 01 : HARVESTING RAHUL-AI ]\`\n✨ 🔮 \`[░░░░░░░░░░]\` 10%\n| *Searching song...*`
         }, { quoted: m });
 
         try {
-            // 150ms Fast Delay
+            // 150ms delay for 50% edit
             await new Promise(r => setTimeout(r, 150));
+            await sock.sendMessage(chatId, { 
+                text: `\`[ 💎 STAGE 01 : HARVESTING RAHUL-AI ]\`\n✨ 🔮 \`[█████░░░░░]\` 50%\n| *Processing data...*`, 
+                edit: loadingMsg.key 
+            });
 
             let finalUrl = query;
             let title = "YouTube Media";
@@ -41,7 +45,7 @@ module.exports = {
                 const results = await yts(query);
 
                 if (!results || !results.videos || results.videos.length === 0) {
-                    return await sock.sendMessage(chatId, { text: `> ❌ *No results found on YouTube.*` }, { quoted: loadingMsg });
+                    return await sock.sendMessage(chatId, { text: `> ❌ *No results found on YouTube.*`, edit: loadingMsg.key });
                 }
 
                 const v = results.videos[0];
@@ -61,50 +65,88 @@ module.exports = {
                 }
             }
 
-            // Next 150ms Fast Delay
+            // 150ms delay for 100% edit
             await new Promise(r => setTimeout(r, 150));
+            await sock.sendMessage(chatId, { 
+                text: `\`[ 💎 STAGE 01 : HARVESTING RAHUL-AI ]\`\n✨ 🔮 \`[██████████]\` 100%\n| *Media Loaded Successfully!*`, 
+                edit: loadingMsg.key 
+            });
 
-            // Clean Text Format (इमेज कॅप्शनसाठी)
+            // Thumbnail Buffer for Final Buttons
+            let thumb;
+            try {
+                const { data } = await axios.get(customImageUrl, { responseType: 'arraybuffer' });
+                const img = await pix.read(Buffer.from(data));
+                const resized = await img.resize(120, 120, { fit: 'cover' });
+                thumb = await resized.toBuffer({ format: 'jpeg', quality: 85 });
+            } catch {
+                thumb = null;
+            }
+
+            // Final Layout Text
             const fancyText = 
 `📌 *Title:* \`${title}\`
 👤 *Channel:* \`${author}\`
 ⏱️ *Duration:* \`${duration}\`
 👁️ *Views:* \`${views.toLocaleString ? views.toLocaleString() : views}\`
 
-─────────────────────
 > *Select an option below to download:*
 🔥 *Powered by RAHUL MASTER*`;
 
-            // Delete loading image message to replace with final buttons or reply to loading message
+            // Delete loading message
             try { await sock.sendMessage(chatId, { delete: loadingMsg.key }); } catch {}
 
-            // Send Final Interactive Message with Image & Buttons
-            await sock.sendMessage(
+            // Send Final Interactive Message with Buttons
+            await sock.relayMessage(
                 chatId,
                 {
-                    image: { url: imageUrl },
-                    caption: fancyText,
-                    buttons: [
-                        {
-                            buttonId: `${prefix}ytmp3 ${finalUrl}`,
-                            buttonText: { displayText: '🎵 AUDIO (MP3)' },
-                            type: 1
+                    buttonsMessage: {
+                        text: fancyText,
+                        contentText: fancyText,
+                        footerText: '🔥 Powered by RAHUL MASTER',
+                        locationMessage: {
+                            name: title,
+                            address: "RAHUL-AI Fast Downloader",
+                            jpegThumbnail: thumb
                         },
-                        {
-                            buttonId: `${prefix}ytmp4 ${finalUrl}`,
-                            buttonText: { displayText: '🎬 VIDEO (MP4)' },
-                            type: 1
-                        }
-                    ],
-                    headerType: 4
+                        buttons: [
+                            {
+                                buttonId: `${prefix}ytmp3 ${finalUrl}`,
+                                buttonText: { displayText: '🎵 AUDIO (MP3)' },
+                                type: 1
+                            },
+                            {
+                                buttonId: `${prefix}ytmp4 ${finalUrl}`,
+                                buttonText: { displayText: '🎬 VIDEO (MP4)' },
+                                type: 1
+                            }
+                        ],
+                        headerType: 6
+                    }
                 },
-                { quoted: m }
+                {
+                    additionalNodes: [
+                        {
+                            tag: 'biz',
+                            attrs: {},
+                            content: [
+                                {
+                                    tag: 'interactive',
+                                    attrs: { type: 'native_flow', v: '1' },
+                                    content: [
+                                        { tag: 'native_flow', attrs: { v: '9', name: 'mixed' } }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
             );
 
         } catch (err) {
             console.error('Play error:', err);
             if (loadingMsg) {
-                await sock.sendMessage(chatId, { text: `> ❌ *An error occurred during search.*` }, { quoted: loadingMsg });
+                await sock.sendMessage(chatId, { text: `> ❌ *An error occurred during search.*`, edit: loadingMsg.key });
             } else {
                 m.reply('> ❌ *Failed to process request.*');
             }
