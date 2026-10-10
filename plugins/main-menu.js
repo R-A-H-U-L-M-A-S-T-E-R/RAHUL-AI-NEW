@@ -13,52 +13,16 @@ module.exports = {
         try {
             const chatId = m.chat || m.from || m.key.remoteJid;
 
-            // 1. React (Safely)
+            // 1. Send React
             try {
                 if (typeof conn.sendMessage === 'function') {
                     await conn.sendMessage(chatId, { react: { text: '⚡', key: m.key } });
-                } else if (typeof m.react === 'function') {
-                    await m.react('⚡');
                 }
-            } catch (e) {
-                console.log("React Error:", e.message);
-            }
+            } catch (e) {}
 
-            // 2. Initial Loading Message
-            let sentMsg = null;
-            const step0 = '⚡ *[ 𝗥𝗔𝗛𝗨𝗟 - 𝗔𝗜 ]* ⚡\n> *[▒▒▒▒▒▒▒▒▒▒] 0%*';
-            
-            try {
-                if (typeof conn.sendMessage === 'function') {
-                    sentMsg = await conn.sendMessage(chatId, { text: step0 }, { quoted: m });
-                } else if (typeof m.reply === 'function') {
-                    sentMsg = await m.reply(step0);
-                }
-            } catch (e) {
-                console.log("Initial Send Error:", e.message);
-            }
-
-            // 3. Edit Animation (Safely wrapped in try-catch)
-            const animationSteps = [
-                '⚡ *[ 𝗥𝗔𝗛𝗨𝗟 - 𝗔𝗜 ]* ⚡\n> *[███▒▒▒▒▒▒▒] 30%*',
-                '⚡ *[ 𝗥𝗔𝗛𝗨𝗟 - 𝗔𝗜 ]* ⚡\n> *[███████▒▒▒] 70%*',
-                '⚡ *[ 𝗥𝗔𝗛𝗨𝗟 - 𝗔𝗜 ]* ⚡\n> *[██████████] 100%*'
-            ];
-
-            for (const textStep of animationSteps) {
-                await new Promise(res => setTimeout(res, 300));
-                try {
-                    if (sentMsg && sentMsg.key && typeof conn.sendMessage === 'function') {
-                        await conn.sendMessage(chatId, { text: textStep, edit: sentMsg.key });
-                    }
-                } catch (e) {
-                    // Ignore edit error if not supported by bot structure
-                }
-            }
-
-            // 4. Config & Data
+            // 2. Variables & Configuration
             const prefix = global['BOT_PREFIX'] || global.prefix || '.';
-            const userName = m.pushName || m.name || 'User';
+            const userName = m.pushName || 'User';
             const imageUrl = 'https://sam-cdn.zone.id/files/xQer9GrIVT.jpg';
             const audioUrl = 'https://spider-avik.zone.id/file/jwfyt2.mpeg';
 
@@ -149,21 +113,21 @@ module.exports = {
 ╰━━━━━━━━━━━━━━━━━━━━━━━━━╯
 > ✨ *POWERED BY RAHUL-AI* ✨`.trim();
 
-            // 5. Send Audio safely
+            // 3. Send Audio Message safely
             try {
-                const audioRes = await axios.get(audioUrl, { responseType: 'arraybuffer', timeout: 5000 });
+                const audioRes = await axios.get(audioUrl, { responseType: 'arraybuffer', timeout: 7000 });
                 const audioBuffer = Buffer.from(audioRes.data);
                 
                 if (typeof conn.sendMessage === 'function') {
                     await conn.sendMessage(chatId, { audio: audioBuffer, mimetype: 'audio/mp4', ptt: true }, { quoted: m });
                 }
             } catch (aErr) {
-                console.log("Audio Send Failed:", aErr.message);
+                console.log("Audio Send Warning:", aErr.message);
             }
 
-            // 6. Send Image Menu safely
+            // 4. Send Image Menu with Caption
             try {
-                const imgRes = await axios.get(imageUrl, { responseType: 'arraybuffer', timeout: 5000 });
+                const imgRes = await axios.get(imageUrl, { responseType: 'arraybuffer', timeout: 7000 });
                 const imageBuffer = Buffer.from(imgRes.data);
 
                 if (typeof conn.sendMessage === 'function') {
@@ -172,8 +136,7 @@ module.exports = {
                     await m.reply(imageBuffer, { caption: menuText });
                 }
             } catch (iErr) {
-                console.log("Image Send Failed, Fallback to Text:", iErr.message);
-                // Image fail झाली तरी Plain Text Menu नक्की पाठवला जाईल
+                console.log("Image Send Failed, sending text fallback:", iErr.message);
                 if (typeof conn.sendMessage === 'function') {
                     await conn.sendMessage(chatId, { text: menuText }, { quoted: m });
                 } else if (typeof m.reply === 'function') {
@@ -182,10 +145,9 @@ module.exports = {
             }
 
         } catch (mainErr) {
-            console.error("Main Command Error:", mainErr);
-            // अत्यंत गंभीर एरर आल्यास बेसिक टेक्स्ट मेसेज पाठवला जाईल
+            console.error("Critical Menu Error:", mainErr);
             try {
-                await conn.sendMessage(m.chat || m.from, { text: "⚠️ Menu loading failed. Please try again." }, { quoted: m });
+                await m.reply("❌ Error executing menu command.");
             } catch (e) {}
         }
     }
