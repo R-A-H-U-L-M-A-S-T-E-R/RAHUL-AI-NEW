@@ -49,7 +49,7 @@ module.exports = {
 
         // 4. Main Menu Text Design
         const menuText = `
-💎━━━━━━━⟨ *ＲＡＨＵＬ-ＡＩ* ❯━━━━━━💎
+💎━━━━━⟨ *ＲＡＨＵＬ-ＡＩ* ❯━━━━💎
 
  👑 *VIP User* : ${userName}
  ⏱️ *Uptime*   : ${uptimeString}
