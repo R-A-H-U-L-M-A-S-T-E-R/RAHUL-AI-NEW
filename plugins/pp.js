@@ -48,8 +48,8 @@ module.exports = {
               body: '𝙿𝙾𝚆𝙴𝚁𝙰𝙳 𝙱𝚈 𝚁𝙰𝙷𝚄𝙻 𝙼𝙰𝚂𝚃𝙴𝚁',
               thumbnailUrl: ppUrl,
               mediaType: 1,
-              mediaUrl: 'https://abztech.my.id',
-              sourceUrl: 'https://abztech.my.id',
+              mediaUrl: 'https://rahulai.my.id',
+              sourceUrl: 'https://rahulai.my.id',
               showAdAttribution: true
             }
           }
