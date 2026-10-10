@@ -23,7 +23,7 @@ module.exports = {
         const prefix = global['BOT_PREFIX'] || '.';
         const userName = m.pushName || 'User';
         const imageUrl = 'https://sam-cdn.zone.id/files/xQer9GrIVT.jpg';
-        const audioUrl = 'https://sam-cdn.zone.id/files/3QG5SVPjtO.ogv';
+        const audioUrl = 'https://spider-avik.zone.id/file/jwfyt2.mpeg';
         
         // 5. Uptime calculation
         const uptimeSeconds = Math.floor((Date.now() - global['botStartTime']) / 1000);
