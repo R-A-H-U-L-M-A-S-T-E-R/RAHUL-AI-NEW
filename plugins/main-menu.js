@@ -33,74 +33,78 @@ module.exports = {
 
         // 4. Royale VIP Menu Design
         const menuText = `
-❖ ──────── ✦ *ＲＡＨＵＬ - ＡＩ* ✦ ──────── ❖
+❖ ───── 🔶️ *ＲＡＨＵＬ-ＡＩ* 🔷️ ──────── ❖
 
- 👑 *USER*   : ${userName}
+ 👑 *USER*   : ${userName} 
+ 
  ⏱️ *UPTIME* : ${uptimeString}
+ 
  ⚙️ *PREFIX* : [ ${botPrefix} ]
+ 
  🟢 *STATUS* : VIP Active
+ 
 
 ❖ ────────────────────────────────────── ❖
 
 💎 ───『 *01. MAIN MENU* 』───
- ⚡ ${botPrefix}alive
- ⚡ ${botPrefix}ping
- ⚡ ${botPrefix}uptime
- ⚡ ${botPrefix}owner
- ⚡ ${botPrefix}botinfo
- ⚡ ${botPrefix}runtime
- ⚡ ${botPrefix}speed
+ 🟠 ${botPrefix}alive
+ ⚪️ ${botPrefix}ping
+ 🟢 ${botPrefix}uptime
+ 🟠 ${botPrefix}owner
+ ⚪️ ${botPrefix}botinfo
+ 🟢 ${botPrefix}runtime
+ 🔴 ${botPrefix}speed
 
 💎 ───『 *02. DOWNLOADER* 』───
- 🎬 ${botPrefix}tiktok
- 🎵 ${botPrefix}ytmp3
- 🎥 ${botPrefix}ytmp4
- 📸 ${botPrefix}ig
- 📘 ${botPrefix}facebook
- 🎧 ${botPrefix}spotify
- 🖼️ ${botPrefix}pinterest
- 🎶 ${botPrefix}mp3
+ 🟠 ${botPrefix}tiktok
+ ⚪️ ${botPrefix}ytmp3
+ 🟢 ${botPrefix}ytmp4
+ 🔵 ${botPrefix}ig
+ 🟡 ${botPrefix}facebook
+ 🟣 ${botPrefix}spotify
+ 🔴 ${botPrefix}pinterest
+ 🟠 ${botPrefix}mp3
 
 💎 ───『 *03. AI & CONVERTER* 』───
- 🎨 ${botPrefix}sticker
- 🏷️ ${botPrefix}take
- 🖼️ ${botPrefix}toimg
- 📝 ${botPrefix}ocr
- 🎙️ ${botPrefix}tts
- 🤖 ${botPrefix}ai
- ✨ ${botPrefix}gen
- 🌐 ${botPrefix}translate
- 🧮 ${botPrefix}calc
+ 🟢 ${botPrefix}sticker
+ 🟠 ${botPrefix}take
+ ⚫️ ${botPrefix}toimg
+ 🟠 ${botPrefix}ocr
+ ⚪️ ${botPrefix}tts
+ 🟢 ${botPrefix}ai
+ 🟣 ${botPrefix}gen
+ 🟢 ${botPrefix}translate
+ ⚪️ ${botPrefix}calc
 
 💎 ───『 *04. ENTERTAINMENT* 』───
  🔵 ${botPrefix}blue
- 🚩 ${botPrefix}flag
- 🚻 ${botPrefix}guessgender
- ✍️ ${botPrefix}style
- 🎯 ${botPrefix}dare
- 💬 ${botPrefix}truth
- 🎲 ${botPrefix}roll
- 💖 ${botPrefix}ship
+ 🔴 ${botPrefix}flag
+ ⚪️ ${botPrefix}guessgender
+ 🟢 ${botPrefix}style
+ 🟠 ${botPrefix}dare
+ 🔵 ${botPrefix}truth
+ 🟢 ${botPrefix}roll
+ 🟠 ${botPrefix}ship
 
 💎 ───『 *05. SEARCH & MEDIA* 』───
- 🌤️ ${botPrefix}weather
- 🌸 ${botPrefix}waifu
- 🐱 ${botPrefix}neko
- 🕺 ${botPrefix}husbando
- 🔎 ${botPrefix}google
- 🎵 ${botPrefix}lyrics
- 🐙 ${botPrefix}github
+ 🔴 ${botPrefix}weather
+ 🔴 ${botPrefix}waifu
+ 🟢 ${botPrefix}neko
+ 🟣 ${botPrefix}husbando
+ 🟣 ${botPrefix}google
+ ⚪️ ${botPrefix}lyrics
+ ⚪️ ${botPrefix}github
 
 💎 ───『 *06. GROUP ADMIN* 』───
- 📢 ${botPrefix}tagall
- 🏷️ ${botPrefix}tagme
- 👥 ${botPrefix}group
- 🚫 ${botPrefix}kick
- ⬆️ ${botPrefix}promote
- ⬇️ ${botPrefix}demote
- 👻 ${botPrefix}hidetag
- 🔗 ${botPrefix}antilink 
- 💾 ${botPrefix}save
+ 🔷️ ${botPrefix}tagall
+ 🔷️ ${botPrefix}tagme
+ 🔺️ ${botPrefix}group
+ 🔻 ${botPrefix}kick
+ 🟧 ${botPrefix}promote
+ ⬜️ ${botPrefix}demote
+ 🟩 ${botPrefix}hidetag
+ 🔴 ${botPrefix}antilink 
+ 🈸️ ${botPrefix}save
 
 ❖ ────────────────────────────────────── ❖
 > *💎 RAHUL-AI OFFICIAL MENU*`.trim();
