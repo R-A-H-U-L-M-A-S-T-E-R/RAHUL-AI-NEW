@@ -6,33 +6,73 @@ if (!global['botStartTime']) {
 
 module.exports = {
     'name': 'menu',
-    'description': 'Animated Cyber-Theme Bot Menu with Visible Loading Message and Audio',
+    'description': 'Animated Cyber-Theme Bot Menu with Progress Counting and Audio',
     'aliases': ['cmdlist', 'commands', 'help'],
     
     async execute(_0x51c72f, _0x12a025) {
         // 1. Initial reaction
         await _0x12a025.react('⚡');
         
-        // 2. Send the Loading Message first so it is clearly visible on chat
-        await _0x12a025.reply('⚡ *[ ＲＡＨＵＬ - ＡＩ ]* ⚡\n> *[▒▒▒▒▒▒▒▒▒▒] Loading Menu... ⏳*');
+        const chatId = _0x12a025.chat || _0x12a025.from;
         
-        // Wait 1 second for the loading message to show up properly
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        // 2. Initial Counting Message (0%)
+        let sentMsg;
+        try {
+            if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function') {
+                sentMsg = await _0x51c72f.sendMessage(chatId, { text: '⚡ *[ 𝗥𝗔𝗛𝗨𝗟 - 𝗔𝗜 ]* ⚡\n> *[▒▒▒▒▒▒▒▒▒▒] 0%*' }, { quoted: _0x12a025 });
+            } else {
+                sentMsg = await _0x12a025.reply('⚡ *[ 𝗥𝗔𝗛𝗨𝗟 - 𝗔𝗜 ]* ⚡\n> *[▒▒▒▒▒▒▒▒▒▒] 0%*');
+            }
+        } catch (e) {
+            console.log("Error 0%:", e);
+        }
 
-        // 3. Variables & URLs
+        // 3. Counting to 30%
+        await new Promise(resolve => setTimeout(resolve, 500));
+        try {
+            if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function' && sentMsg) {
+                await _0x51c72f.sendMessage(chatId, { text: '⚡ *[ 𝗥𝗔𝗛𝗨𝗟 - 𝗔Ｉ ]* ⚡\n> *[███▒▒▒▒▒▒▒] 30%*', edit: sentMsg.key || sentMsg });
+            }
+        } catch (e) {
+            console.log("Error 30%:", e);
+        }
+
+        // 4. Counting to 70%
+        await new Promise(resolve => setTimeout(resolve, 500));
+        try {
+            if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function' && sentMsg) {
+                await _0x51c72f.sendMessage(chatId, { text: '⚡ *[ 𝗥𝗔𝗛𝗨𝗟 - 𝗔𝗜 ]* ⚡\n> *[███████▒▒▒] 70%*', edit: sentMsg.key || sentMsg });
+            }
+        } catch (e) {
+            console.log("Error 70%:", e);
+        }
+
+        // 5. Counting to 100%
+        await new Promise(resolve => setTimeout(resolve, 500));
+        try {
+            if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function' && sentMsg) {
+                await _0x51c72f.sendMessage(chatId, { text: '⚡ *[ 𝗥𝗔𝗛𝗨𝗟 - 𝗔𝗜 ]* ⚡\n> *[██████████] 100%*', edit: sentMsg.key || sentMsg });
+            }
+        } catch (e) {
+            console.log("Error 100%:", e);
+        }
+
+        await new Promise(resolve => setTimeout(resolve, 400));
+
+        // 6. Variables & URLs
         const prefix = global['BOT_PREFIX'] || '.';
         const userName = _0x12a025.pushName || 'User';
         const imageUrl = 'https://sam-cdn.zone.id/files/xQer9GrIVT.jpg';
         const audioUrl = 'https://spider-avik.zone.id/file/jwfyt2.mpeg';
         
-        // 4. Uptime calculation
+        // 7. Uptime calculation
         const uptimeSeconds = Math.floor((Date.now() - global['botStartTime']) / 1000);
         const hours = Math.floor(uptimeSeconds / 3600);
         const minutes = Math.floor((uptimeSeconds % 3600) / 60);
         const seconds = uptimeSeconds % 60;
         const uptimeString = `${hours}h ${minutes}m ${seconds}s`;
         
-        // 5. Animated Cyber Menu Style
+        // 8. Animated Cyber Menu Style
         const menuText = `
 ╭━━━❮ 💠 *ＲＡＨＵＬ - ＡＩ* 🔺️ ❯━━━╮
 ┃
@@ -112,9 +152,7 @@ module.exports = {
 ╰━━━━━━━━━━━━━━━━━━━━━━━━━╯
 > ✨ *POWERED BY RAHUL-AI* ✨`.trim();
 
-        const chatId = _0x12a025.chat || _0x12a025.from;
-
-        // 6. Send Audio Message
+        // 9. Send Audio Message
         try {
             const audioBuffer = (await axios.get(audioUrl, { responseType: 'arraybuffer' })).data;
             if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function') {
@@ -130,7 +168,7 @@ module.exports = {
             console.log("Audio send error:", audioErr);
         }
 
-        // 7. Send Menu Image with Caption
+        // 10. Send Menu Image
         try {
             const imageBuffer = (await axios.get(imageUrl, { responseType: 'arraybuffer' })).data;
             if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function') {
