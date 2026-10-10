@@ -4,7 +4,7 @@ const yts = require('yt-search');
 
 module.exports = {
     name: 'play',
-    description: 'Search YouTube with image loading effect and percentage count',
+    description: 'Search YouTube and play with smooth percentage loading effect',
     aliases: ['yt', 'song'],
     command: /^.?(play|yt|song)/i,
 
@@ -20,10 +20,9 @@ module.exports = {
 
         const customImageUrl = 'https://sam-cdn.zone.id/files/QyFk2yt61I.jpg';
 
-        // 1. Initial Loading Message with Image (10%)
+        // 1. Initial Simple Text Loading Message (10%)
         let loadingMsg = await sock.sendMessage(chatId, { 
-            image: { url: customImageUrl },
-            caption: `\`[ 💎 STAGE 01 : HARVESTING RAHUL-AI ]\`\n✨ 🔮 \`[░░░░░░░░░░]\` 10%\n| *Searching song...*`
+            text: `\`[ 💎 STAGE 01 : HARVESTING RAHUL-AI ]\`\n✨ 🔮 \`[░░░░░░░░░░]\` 10%\n| *Searching song...*`
         }, { quoted: m });
 
         try {
@@ -72,7 +71,7 @@ module.exports = {
                 edit: loadingMsg.key 
             });
 
-            // Thumbnail Buffer for Final Buttons
+            // Thumbnail Buffer
             let thumb;
             try {
                 const { data } = await axios.get(customImageUrl, { responseType: 'arraybuffer' });
@@ -93,10 +92,10 @@ module.exports = {
 > *Select an option below to download:*
 🔥 *Powered by RAHUL MASTER*`;
 
-            // Delete loading message
+            // Delete loading text message
             try { await sock.sendMessage(chatId, { delete: loadingMsg.key }); } catch {}
 
-            // Send Final Interactive Message with Buttons
+            // Send Final Interactive Message with Image & Buttons
             await sock.relayMessage(
                 chatId,
                 {
