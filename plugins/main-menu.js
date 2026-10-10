@@ -5,70 +5,72 @@ if (!global['botStartTime']) {
 }
 
 module.exports = {
-    'name': 'menu',
-    'description': 'Animated Cyber-Theme Bot Menu with Reliable Image, Audio, and Progress Counting',
-    'aliases': ['cmdlist', 'commands', 'help'],
-    
-    async execute(_0x51c72f, _0x12a025) {
+    name: 'menu',
+    description: 'Animated Cyber-Theme Bot Menu with Reliable Image, Audio, and Progress Counting',
+    aliases: ['cmdlist', 'commands', 'help'],
+
+    async execute(conn, m) {
+        // Chat and Message normalization
+        const bot = conn || m;
+        const chatId = m.chat || m.from;
+
         // 1. Initial reaction
-        await _0x12a025.react('⚡');
-        
-        const chatId = _0x12a025.chat || _0x12a025.from;
-        
-        // 2. Initial Counting Message (0%)
-        let sentMsg;
         try {
-            if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function') {
-                sentMsg = await _0x51c72f.sendMessage(chatId, { text: '⚡ *[ 𝗥𝗔𝗛𝗨𝗟 - 𝗔𝗜 ]* ⚡\n> *[▒▒▒▒▒▒▒▒▒▒] 0%*' }, { quoted: _0x12a025 });
-            } else {
-                sentMsg = await _0x12a025.reply('⚡ *[ 𝗥𝗔𝗛𝗨𝗟 - 𝗔𝗜 ]* ⚡\n> *[▒▒▒▒▒▒▒▒▒▒] 0%*');
+            if (typeof m.react === 'function') {
+                await m.react('⚡');
+            }
+        } catch (e) {}
+
+        // 2. Progress Animation (Loading Bar)
+        let sentMsg = null;
+        const loadingSteps = [
+            '⚡ *[ 𝗥𝗔𝗛𝗨𝗟 - 𝗔𝗜 ]* ⚡\n> *[▒▒▒▒▒▒▒▒▒▒] 0%*',
+            '⚡ *[ 𝗥𝗔𝗛𝗨𝗟 - 𝗔𝗜 ]* ⚡\n> *[███▒▒▒▒▒▒▒] 30%*',
+            '⚡ *[ 𝗥𝗔𝗛𝗨𝗟 - 𝗔𝗜 ]* ⚡\n> *[███████▒▒▒] 70%*',
+            '⚡ *[ 𝗥𝗔𝗛𝗨𝗟 - 𝗔𝗜 ]* ⚡\n> *[██████████] 100%*'
+        ];
+
+        try {
+            // First Message Send
+            if (typeof bot.sendMessage === 'function') {
+                sentMsg = await bot.sendMessage(chatId, { text: loadingSteps[0] }, { quoted: m });
+            } else if (typeof m.reply === 'function') {
+                sentMsg = await m.reply(loadingSteps[0]);
+            }
+
+            // Edit animation step-by-step
+            for (let i = 1; i < loadingSteps.length; i++) {
+                await new Promise(res => setTimeout(res, 400));
+                
+                if (sentMsg && sentMsg.key && typeof bot.sendMessage === 'function') {
+                    await bot.sendMessage(chatId, { 
+                        text: loadingSteps[i], 
+                        edit: sentMsg.key 
+                    });
+                }
             }
         } catch (e) {
-            console.log("Error 0%:", e);
+            console.log("Loading animation error:", e);
         }
 
-        // 3. Counting to 30%
-        await new Promise(resolve => setTimeout(resolve, 400));
-        try {
-            if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function' && sentMsg) {
-                await _0x51c72f.sendMessage(chatId, { text: '⚡ *[ 𝗥𝗔Ｈ𝗨𝗟 - ＡＩ ]* ⚡\n> *[███▒▒▒▒▒▒▒] 30%*', edit: sentMsg.key || sentMsg });
-            }
-        } catch (e) {}
+        await new Promise(res => setTimeout(res, 300));
 
-        // 4. Counting to 70%
-        await new Promise(resolve => setTimeout(resolve, 400));
-        try {
-            if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function' && sentMsg) {
-                await _0x51c72f.sendMessage(chatId, { text: '⚡ *[ 𝗥𝗔Ｈ𝗨𝗟 - ＡＩ ]* ⚡\n> *[███████▒▒▒] 70%*', edit: sentMsg.key || sentMsg });
-            }
-        } catch (e) {}
-
-        // 5. Counting to 100%
-        await new Promise(resolve => setTimeout(resolve, 400));
-        try {
-            if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function' && sentMsg) {
-                await _0x51c72f.sendMessage(chatId, { text: '⚡ *[ 𝗥𝗔Ｈ𝗨𝗟 - ＡＩ ]* ⚡\n> *[██████████] 100%*', edit: sentMsg.key || sentMsg });
-            }
-        } catch (e) {}
-
-        await new Promise(resolve => setTimeout(resolve, 300));
-
-        // 6. Variables & URLs
-        const prefix = global['BOT_PREFIX'] || '.';
-        const userName = _0x12a025.pushName || 'User';
+        // 3. Variables & Configuration
+        const prefix = global['BOT_PREFIX'] || global.prefix || '.';
+        const userName = m.pushName || m.name || 'User';
         const imageUrl = 'https://sam-cdn.zone.id/files/xQer9GrIVT.jpg';
         const audioUrl = 'https://spider-avik.zone.id/file/jwfyt2.mpeg';
-        
-        // 7. Uptime calculation
+
+        // 4. Uptime calculation
         const uptimeSeconds = Math.floor((Date.now() - global['botStartTime']) / 1000);
         const hours = Math.floor(uptimeSeconds / 3600);
         const minutes = Math.floor((uptimeSeconds % 3600) / 60);
         const seconds = uptimeSeconds % 60;
         const uptimeString = `${hours}h ${minutes}m ${seconds}s`;
-        
-        // 8. Animated Cyber Menu Style
+
+        // 5. Menu Text
         const menuText = `
-╭━━━❮ 💠 *ＲＡＨＵ Ｌ - ＡＩ* 🔺️ ❯━━━╮
+╭━━━❮ 💠 *ＲＡＨＵＬ - ＡＩ* 🔺️ ❯━━━╮
 ┃
 ┃ ╭━━━❮ 👤 *USER DASHBOARD* ❯
 ┃ ┃ ⚡ User   : *${userName}*
@@ -146,36 +148,45 @@ module.exports = {
 ╰━━━━━━━━━━━━━━━━━━━━━━━━━╯
 > ✨ *POWERED BY RAHUL-AI* ✨`.trim();
 
-        // 9. Send Audio Message (Direct URL First Method)
+        // 6. Send Audio Message (Buffer Method)
         try {
-            if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function') {
-                await _0x51c72f.sendMessage(chatId, { 
-                    audio: { url: audioUrl }, 
-                    mimetype: 'audio/mp4', 
-                    ptt: true 
-                }, { quoted: _0x12a025 });
-            } else {
-                const audioBuffer = (await axios.get(audioUrl, { responseType: 'arraybuffer' })).data;
-                await _0x12a025.reply(audioBuffer, { mimetype: 'audio/mp4', ptt: true });
+            const audioRes = await axios.get(audioUrl, { responseType: 'arraybuffer' });
+            const audioBuffer = Buffer.from(audioRes.data);
+
+            if (typeof bot.sendMessage === 'function') {
+                await bot.sendMessage(chatId, {
+                    audio: audioBuffer,
+                    mimetype: 'audio/mp4',
+                    ptt: true
+                }, { quoted: m });
+            } else if (typeof m.reply === 'function') {
+                await m.reply(audioBuffer, { mimetype: 'audio/mp4', ptt: true });
             }
         } catch (audioErr) {
-            console.log("Audio send error:", audioErr);
+            console.log("Audio send failed:", audioErr.message);
         }
 
-        // 10. Send Image Menu (Direct URL First Method)
+        // 7. Send Image Menu Message (Buffer Method)
         try {
-            if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function') {
-                await _0x51c72f.sendMessage(chatId, {
-                    image: { url: imageUrl },
+            const imgRes = await axios.get(imageUrl, { responseType: 'arraybuffer' });
+            const imageBuffer = Buffer.from(imgRes.data);
+
+            if (typeof bot.sendMessage === 'function') {
+                await bot.sendMessage(chatId, {
+                    image: imageBuffer,
                     caption: menuText
-                }, { quoted: _0x12a025 });
-            } else {
-                const imageBuffer = (await axios.get(imageUrl, { responseType: 'arraybuffer' })).data;
-                await _0x12a025.reply(imageBuffer, { caption: menuText });
+                }, { quoted: m });
+            } else if (typeof m.reply === 'function') {
+                await m.reply(imageBuffer, { caption: menuText });
             }
-        } catch (err) {
-            console.log("Image send error:", err);
-            await _0x12a025.reply(menuText);
+        } catch (imgErr) {
+            console.log("Image send failed, falling back to text:", imgErr.message);
+            // Fallback: Send plain text menu if image fails
+            if (typeof bot.sendMessage === 'function') {
+                await bot.sendMessage(chatId, { text: menuText }, { quoted: m });
+            } else {
+                await m.reply(menuText);
+            }
         }
     }
 };
