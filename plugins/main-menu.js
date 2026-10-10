@@ -6,79 +6,33 @@ if (!global['botStartTime']) {
 
 module.exports = {
     'name': 'menu',
-    'description': 'Animated Cyber-Theme Bot Menu with Reliable Loading Sequence',
+    'description': 'Animated Cyber-Theme Bot Menu with Visible Loading Message and Audio',
     'aliases': ['cmdlist', 'commands', 'help'],
     
     async execute(_0x51c72f, _0x12a025) {
-        // 1. Initial reaction with lighting effect
+        // 1. Initial reaction
         await _0x12a025.react('⚡');
         
-        const chatId = _0x12a025.chat || _0x12a025.from;
+        // 2. Send the Loading Message first so it is clearly visible on chat
+        await _0x12a025.reply('⚡ *[ ＲＡＨＵＬ - ＡＩ ]* ⚡\n> *[▒▒▒▒▒▒▒▒▒▒] Loading Menu... ⏳*');
+        
+        // Wait 1 second for the loading message to show up properly
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
-        // 2. Step 1: Loading 0%
-        let loadingMsg;
-        try {
-            if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function') {
-                loadingMsg = await _0x51c72f.sendMessage(chatId, { text: '⚡ *[ ＲＡＨＵＬ - ＡＩ ]* ⚡\n> *[▒▒▒▒▒▒▒▒▒▒] 0%*' }, { quoted: _0x12a025 });
-            } else {
-                loadingMsg = await _0x12a025.reply('⚡ *[ ＲＡＨＵＬ - ＡＩ ]* ⚡\n> *[▒▒▒▒▒▒▒▒▒▒] 0%*');
-            }
-        } catch (e) {
-            console.log("Loading error:", e);
-        }
-
-        // Short pause for animation effect
-        await new Promise(resolve => setTimeout(resolve, 500));
-
-        // 3. Step 2: Loading 50% (Deleting old and sending updated to avoid edit bugs)
-        try {
-            if (loadingMsg && _0x51c72f && typeof _0x51c72f.sendMessage === 'function') {
-                await _0x51c72f.sendMessage(chatId, { delete: loadingMsg.key || loadingMsg }).catch(() => {});
-            }
-            if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function') {
-                loadingMsg = await _0x51c72f.sendMessage(chatId, { text: '⚡ *[ ＲＡＨＵＬ - ＡＩ ]* ⚡\n> *[█████▒▒▒▒▒] 50%*' }, { quoted: _0x12a025 });
-            }
-        } catch (e) {
-            console.log("50% error:", e);
-        }
-
-        await new Promise(resolve => setTimeout(resolve, 500));
-
-        // 4. Step 3: Loading 100%
-        try {
-            if (loadingMsg && _0x51c72f && typeof _0x51c72f.sendMessage === 'function') {
-                await _0x51c72f.sendMessage(chatId, { delete: loadingMsg.key || loadingMsg }).catch(() => {});
-            }
-            if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function') {
-                loadingMsg = await _0x51c72f.sendMessage(chatId, { text: '⚡ *[ ＲＡＨＵＬ - ＡＩ ]* ⚡\n> *[██████████] 100%*' }, { quoted: _0x12a025 });
-            }
-        } catch (e) {
-            console.log("100% error:", e);
-        }
-
-        await new Promise(resolve => setTimeout(resolve, 400));
-
-        // Delete the final loading message before sending the main menu
-        try {
-            if (loadingMsg && _0x51c72f && typeof _0x51c72f.sendMessage === 'function') {
-                await _0x51c72f.sendMessage(chatId, { delete: loadingMsg.key || loadingMsg }).catch(() => {});
-            }
-        } catch (e) {}
-
-        // 5. Variables & URLs
+        // 3. Variables & URLs
         const prefix = global['BOT_PREFIX'] || '.';
         const userName = _0x12a025.pushName || 'User';
         const imageUrl = 'https://sam-cdn.zone.id/files/xQer9GrIVT.jpg';
         const audioUrl = 'https://spider-avik.zone.id/file/jwfyt2.mpeg';
         
-        // 6. Uptime calculation
+        // 4. Uptime calculation
         const uptimeSeconds = Math.floor((Date.now() - global['botStartTime']) / 1000);
         const hours = Math.floor(uptimeSeconds / 3600);
         const minutes = Math.floor((uptimeSeconds % 3600) / 60);
         const seconds = uptimeSeconds % 60;
         const uptimeString = `${hours}h ${minutes}m ${seconds}s`;
         
-        // 7. Animated Cyber Menu Style
+        // 5. Animated Cyber Menu Style
         const menuText = `
 ╭━━━❮ 💠 *ＲＡＨＵＬ - ＡＩ* 🔺️ ❯━━━╮
 ┃
@@ -158,7 +112,9 @@ module.exports = {
 ╰━━━━━━━━━━━━━━━━━━━━━━━━━╯
 > ✨ *POWERED BY RAHUL-AI* ✨`.trim();
 
-        // 8. Send Audio Message
+        const chatId = _0x12a025.chat || _0x12a025.from;
+
+        // 6. Send Audio Message
         try {
             const audioBuffer = (await axios.get(audioUrl, { responseType: 'arraybuffer' })).data;
             if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function') {
@@ -174,7 +130,7 @@ module.exports = {
             console.log("Audio send error:", audioErr);
         }
 
-        // 9. Send Menu Image
+        // 7. Send Menu Image with Caption
         try {
             const imageBuffer = (await axios.get(imageUrl, { responseType: 'arraybuffer' })).data;
             if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function') {
