@@ -6,52 +6,64 @@ if (!global['botStartTime']) {
 
 module.exports = {
     'name': 'menu',
-    'description': 'Animated Cyber-Theme Bot Menu with Working Loading Animation and Audio',
+    'description': 'Animated Cyber-Theme Bot Menu with Reliable Loading Sequence',
     'aliases': ['cmdlist', 'commands', 'help'],
     
     async execute(_0x51c72f, _0x12a025) {
         // 1. Initial reaction with lighting effect
-        await _0x12a025.react('🎉');
+        await _0x12a025.react('⚡');
         
         const chatId = _0x12a025.chat || _0x12a025.from;
-        
-        // 2. Initial Loading Message (0%)
-        let sentMsg;
+
+        // 2. Step 1: Loading 0%
+        let loadingMsg;
         try {
             if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function') {
-                sentMsg = await _0x51c72f.sendMessage(chatId, { text: '⚡ *[ ＲＡＨＵＬ - ＡＩ ]* ⚡\n> *[▒▒▒▒▒▒▒▒▒▒] 0%*' }, { quoted: _0x12a025 });
+                loadingMsg = await _0x51c72f.sendMessage(chatId, { text: '⚡ *[ ＲＡＨＵＬ - ＡＩ ]* ⚡\n> *[▒▒▒▒▒▒▒▒▒▒] 0%*' }, { quoted: _0x12a025 });
             } else {
-                sentMsg = await _0x12a025.reply('⚡ *[ ＲＡＨＵＬ - ＡＩ ]* ⚡\n> *[▒▒▒▒▒▒▒▒▒▒] 0%*');
+                loadingMsg = await _0x12a025.reply('⚡ *[ ＲＡＨＵＬ - ＡＩ ]* ⚡\n> *[▒▒▒▒▒▒▒▒▒▒] 0%*');
             }
         } catch (e) {
-            console.log("Loading start error:", e);
+            console.log("Loading error:", e);
         }
 
-        // 3. Update to 50% Animation Step
-        await new Promise(resolve => setTimeout(resolve, 600));
+        // Short pause for animation effect
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        // 3. Step 2: Loading 50% (Deleting old and sending updated to avoid edit bugs)
         try {
-            if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function' && sentMsg) {
-                await _0x51c72f.sendMessage(chatId, { text: '⚡ *[ ＲＡＨＵＬ - ＡＩ ]* ⚡\n> *[█████▒▒▒▒▒] 50%*', edit: sentMsg.key || sentMsg });
-            } else if (sentMsg && typeof sentMsg.edit === 'function') {
-                await sentMsg.edit('⚡ *[ ＲＡＨＵＬ - ＡＩ ]* ⚡\n> *[█████▒▒▒▒▒] 50%*');
+            if (loadingMsg && _0x51c72f && typeof _0x51c72f.sendMessage === 'function') {
+                await _0x51c72f.sendMessage(chatId, { delete: loadingMsg.key || loadingMsg }).catch(() => {});
+            }
+            if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function') {
+                loadingMsg = await _0x51c72f.sendMessage(chatId, { text: '⚡ *[ ＲＡＨＵＬ - ＡＩ ]* ⚡\n> *[█████▒▒▒▒▒] 50%*' }, { quoted: _0x12a025 });
             }
         } catch (e) {
-            console.log("Animation 50% error:", e);
+            console.log("50% error:", e);
         }
 
-        // 4. Update to 100% Animation Step
-        await new Promise(resolve => setTimeout(resolve, 600));
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        // 4. Step 3: Loading 100%
         try {
-            if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function' && sentMsg) {
-                await _0x51c72f.sendMessage(chatId, { text: '⚡ *[ ＲＡＨＵＬ - ＡＩ ]* ⚡\n> *[██████████] 100%*', edit: sentMsg.key || sentMsg });
-            } else if (sentMsg && typeof sentMsg.edit === 'function') {
-                await sentMsg.edit('⚡ *[ ＲＡＨＵＬ - ＡＩ ]* ⚡\n> *[██████████] 100%*');
+            if (loadingMsg && _0x51c72f && typeof _0x51c72f.sendMessage === 'function') {
+                await _0x51c72f.sendMessage(chatId, { delete: loadingMsg.key || loadingMsg }).catch(() => {});
+            }
+            if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function') {
+                loadingMsg = await _0x51c72f.sendMessage(chatId, { text: '⚡ *[ ＲＡＨＵＬ - ＡＩ ]* ⚡\n> *[██████████] 100%*' }, { quoted: _0x12a025 });
             }
         } catch (e) {
-            console.log("Animation 100% error:", e);
+            console.log("100% error:", e);
         }
 
         await new Promise(resolve => setTimeout(resolve, 400));
+
+        // Delete the final loading message before sending the main menu
+        try {
+            if (loadingMsg && _0x51c72f && typeof _0x51c72f.sendMessage === 'function') {
+                await _0x51c72f.sendMessage(chatId, { delete: loadingMsg.key || loadingMsg }).catch(() => {});
+            }
+        } catch (e) {}
 
         // 5. Variables & URLs
         const prefix = global['BOT_PREFIX'] || '.';
@@ -146,7 +158,7 @@ module.exports = {
 ╰━━━━━━━━━━━━━━━━━━━━━━━━━╯
 > ✨ *POWERED BY RAHUL-AI* ✨`.trim();
 
-        // 8. Audio Response Send
+        // 8. Send Audio Message
         try {
             const audioBuffer = (await axios.get(audioUrl, { responseType: 'arraybuffer' })).data;
             if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function') {
@@ -162,7 +174,7 @@ module.exports = {
             console.log("Audio send error:", audioErr);
         }
 
-        // 9. Menu Image Send
+        // 9. Send Menu Image
         try {
             const imageBuffer = (await axios.get(imageUrl, { responseType: 'arraybuffer' })).data;
             if (_0x51c72f && typeof _0x51c72f.sendMessage === 'function') {
